@@ -10,7 +10,7 @@
 </p>
 
 <h1 align="center"><b>Thrifty</b></h1>
-<h4 align="center"> "test"A sophisticated shopping app that integrates the eBay and Poshmark APIs, offering users a seamless platform to search, explore, and manage their wishlist.</h4>
+<h4 align="center"> "mongo.db"A sophisticated shopping app that integrates the eBay and Poshmark APIs, offering users a seamless platform to search, explore, and manage their wishlist.</h4>
 
 <p align="center">
     <img src="" alt="Project Logo" width=60% height=60%/>
