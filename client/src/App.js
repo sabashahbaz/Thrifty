@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
-import Header from "./Components/Static/Header";
+// import Header from "./Components/Static/Header";
 import Welcome from "./Components/Routes/Welcome";
 import Products from "./Components/Routes/Products";
 import CreateAccountPage from './Components/Routes/CreateAccountPage';
@@ -9,7 +9,7 @@ import UserDetails from "./Components/Pieces/UserDetails";
 import WishlistProducts from "./Components/Routes/WishlistProducts";
 
 import { Outlet, Link } from 'react-router-dom'
-import Navbar from './Components/Static/Navbar';
+import Navbar from './Components/Pieces/Navbar';
 import DisplayProduct from "./Components/Pieces/DisplayProduct";
 import DisplayWishlistProducts from "./Components/Routes/WishlistProducts";
 import FeaturedProduct from "./Components/Pieces/FeaturedProduct";
@@ -83,7 +83,7 @@ function App() {
     return (
         <Router>
             <div className="Header">
-                <Header setProductsList={setProductsList} currentUser={currentUser} logout={logout}/>
+                <Navbar setProductsList={setProductsList} currentUser={currentUser} logout={logout}/>
                 <div className="content">
                     <Switch>
                         <Route exact path="/">

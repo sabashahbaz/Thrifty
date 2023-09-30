@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {Link, useOutletContext} from 'react-router-dom';
 import DisplayProduct from '../Pieces/DisplayProduct'
-import loadingGif from '../assets/loadinggif.gif';
+// import loadingGif from '../assets/loadinggif.gif';
 
 
 // Displays all of the products that are searched //
@@ -28,7 +28,7 @@ useEffect(() => {
                     handleAddToWishlist={handleAddToWishlist}
                     />
                 ))}
-                <img src={loadingGif} />
+                {/* <img src={loadingGif} /> */}
             </div>
             )
 

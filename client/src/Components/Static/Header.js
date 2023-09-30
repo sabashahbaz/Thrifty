@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "../Pieces/Navbar";
 // import { Outlet } from 'react-router-dom'
 import FooterNavbar from "./FooterNavbar"
 
@@ -14,4 +14,4 @@ function Header ({ setProductsList, currentUser, logout }) {
     )
 };
 
-export default Header;
+// export default Header;
