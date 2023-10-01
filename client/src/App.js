@@ -2,8 +2,9 @@ import {BrowserRouter, Routes, Route, Outlet, Navigate} from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import Layout from './Layout'
 import LoginPage from './Components/Routes/LoginPage'
-import IndexPage from './Components/Routes/IndexPage'
-import Navbar from './Components/Pieces/Navbar'
+import Register from './Components/Routes/Register'
+// import IndexPage from './Components/Routes/IndexPage'
+// import Navbar from './Components/Pieces/Navbar'
 
 
 // The main app page, pareant. landing page, idk //
@@ -22,6 +23,7 @@ function App() {
         <Routes >
             <Route path="/" element={<Layout />} >
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<Register />} />
             </Route>
         </Routes>
         

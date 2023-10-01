@@ -40,6 +40,9 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
                     <input className= "w-full border my-1 py-2 px-3 rounded-2xl" type="email" placeholder="you@email.com" />
                     <input className= "w-full border my-1 py-2 px-3 rounded-2xl" type="password" placeholder = "password" />
                     <button className="bg-primary p-2 w-full rounded-2xl text-black"> Login</button>
+                    <div className="text-center py-2 text-gray-500">
+                        Don't have an account yet? <Link className="underline text" to={'/register'}> Register now</Link>
+                        </div>
                 </form>
 
 
