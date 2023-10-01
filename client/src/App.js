@@ -4,6 +4,8 @@ import Layout from './Layout'
 import LoginPage from './Components/Routes/LoginPage'
 import Register from './Components/Routes/Register'
 import axios from 'axios'
+// import { UserContextProvider } from './Components/Pieces/UserContext';
+import UserContextProvider from './Components/Pieces/UserContext';
 // import IndexPage from './Components/Routes/IndexPage'
 // import Navbar from './Components/Pieces/Navbar'
 
@@ -13,28 +15,25 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:4000'
 function App() {
 
+
     const [currentUser, setCurrentUser] = useState(null)
     const [products, setProductsList] = useState([])
     const [wishlist, setWishlist] = useState([])
     const [featuredProduct, setFeaturedProduct] = useState([])
 
-    
-
     return (
-        <BrowserRouter>
-        <Routes >
-            <Route path="/" element={<Layout />} >
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<Register />} />
-            </Route>
-        </Routes>
-        
-        </BrowserRouter>
-        
-
-    
+        <UserContextProvider currentUser={currentUser} setCurrentUser={setCurrentUser}>
+            <BrowserRouter>
+                <Routes >
+                    <Route path="/" element={<Layout />} >
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </UserContextProvider>
     )
-        }
+};
 
 
 export default App;

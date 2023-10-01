@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-
 function Register() {
 
     const [firstName, setFirstName] = useState("")
@@ -10,12 +9,17 @@ function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    function registerUser (e) {
+    async function registerUser (e) {
     e.preventDefault()
-    axios.post('/register', {firstName, lastName, email, password})
-  
+    try {
+        await axios.post('/register', {
+            firstName, lastName, email, password
+        });
+        alert("Registered successfull. Now you can log in.")
+    } catch (e) {
+        alert("Registration failed. Please try again.")
     }
-
+};
 
     return (
         <div className="mt-4 grow flex items-center justify-around">
@@ -61,20 +65,3 @@ function Register() {
 };
 
 export default Register;
-
-
-
-// function handleSubmit(e) {
-//     e.preventDefault();
-//     createAccount({ "username": username, "password": password });
-//     setIsAccountCreated(true)
-//     createAccountAlert()
-// }
-
-// function createAccountAlert(e) {
-//     if (isAccountCreated) {
-//         alert("Account was created successfully!")
-//     } else {
-//         alert("Please try again ")
-//     }
-// }
