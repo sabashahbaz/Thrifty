@@ -1,16 +1,17 @@
 <p align="center">
     <a href=""><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
-    <a href=""><img src="https://badgen.net/github/commits/aokhepburn/price-comparison-site" /></a>
+    <a href=""><img src="https://badgen.net/github/commits/sabashahbaz/Thrifty2.0" /></a>
     <br>
-    <a href="https://docs.python.org/3/index.html"><img src="https://img.shields.io/badge/python-%2320232a?style=for-the-badge&logo=python&logoColor=ffdd54" /></a>
+    <a href="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /></a>
     <a href=""><img src="https://img.shields.io/badge/React.js-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=white"/></a>
-    <a href=""><img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" /></a>
+    <a href=""><img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white" /></a>
     <br>
-    <a href=""><img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white" /></a>
+    <a href=""><img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" /></a>
+    <a href=""><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /></a>
 </p>
 
 <h1 align="center"><b>Thrifty</b></h1>
-<h4 align="center"> "mongo.db"A sophisticated shopping app that integrates the eBay and Poshmark APIs, offering users a seamless platform to search, explore, and manage their wishlist.</h4>
+<h4 align="center"> A sophisticated shopping app that integrates the eBay and Poshmark APIs, offering users a seamless platform to search, explore, and manage their wishlist.</h4>
 
 <p align="center">
     <img src="" alt="Project Logo" width=60% height=60%/>
