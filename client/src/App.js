@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import Layout from './Layout'
 import LoginPage from './Components/Routes/LoginPage'
 import Register from './Components/Routes/Register'
+import axios from 'axios'
 // import IndexPage from './Components/Routes/IndexPage'
 // import Navbar from './Components/Pieces/Navbar'
 
 
 // The main app page, pareant. landing page, idk //
 
+axios.defaults.baseURL = 'http://localhost:4000'
 function App() {
 
     const [currentUser, setCurrentUser] = useState(null)
