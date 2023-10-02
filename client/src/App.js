@@ -8,6 +8,10 @@ import AccountPage from './Components/Routes/AccountPage';
 
 // import { UserContextProvider } from './Components/Pieces/UserContext';
 import UserContextProvider from './Components/Pieces/UserContext';
+import MyListing from './Components/Routes/MyListing';
+import WishListPage from './Components/Routes/WishListPage';
+import Navbar from './Components/Pieces/Navbar';
+import NewListing from './Components/Routes/NewListing';
 // import IndexPage from './Components/Routes/IndexPage'
 // import Navbar from './Components/Pieces/Navbar'
 
@@ -19,31 +23,40 @@ function App() {
 
 
     const [currentUser, setCurrentUser] = useState(null)
-    const [products, setProductsList] = useState([])
-    const [wishlist, setWishlist] = useState([])
-    const [featuredProduct, setFeaturedProduct] = useState([])
+ 
 
     return (
+        <BrowserRouter>
         <UserContextProvider currentUser={currentUser} setCurrentUser={setCurrentUser}>
-            <BrowserRouter>
+            <Navbar></Navbar>
                 <Routes >
-                    <Route path="/" element={<Layout />} >
+                    {/* <Route path="/" element={<Layout />} > */}
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/account/:subpage?" element={<AccountPage />} />
-                        {/* <Route path="/account/wishlist" element={<AccountPage />} />
-                        <Route path="/account/listings" element={<AccountPage />} /> */}
-                    </Route>
+                        <Route path="account" element={<AccountPage />}>
+                            <Route path="wishlist" element={<WishListPage />} />
+                            <Route path="listings" element={<MyListing />} >
+                                <Route path="new" element={<NewListing />}/>
+                            </Route>
+
+
+                        </Route>
+
+                      
+                
+                    {/* </Route> */}
                 </Routes>
-            </BrowserRouter>
         </UserContextProvider>
+        </BrowserRouter>
     )
 };
 
 
 export default App;
 
-
+// const [products, setProductsList] = useState([])
+// const [wishlist, setWishlist] = useState([])
+// const [featuredProduct, setFeaturedProduct] = useState([])
 
 
 //    //check_session 
