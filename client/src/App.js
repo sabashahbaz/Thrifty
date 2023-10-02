@@ -11,7 +11,7 @@ import UserContextProvider from './Components/Pieces/UserContext';
 import MyListing from './Components/Routes/MyListing';
 import WishListPage from './Components/Routes/WishListPage';
 import Navbar from './Components/Pieces/Navbar';
-import NewListing from './Components/Routes/NewListing';
+import NewListing from './Components/Routes/NewListingPage';
 // import IndexPage from './Components/Routes/IndexPage'
 // import Navbar from './Components/Pieces/Navbar'
 

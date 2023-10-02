@@ -8,7 +8,7 @@ import UserDetails from './UserDetails';
 function Navbar ({ setProductsList, currentUser, logout }) {
 
     const {user} = useContext(UserContext);
-    console.log("waht is the user from navbar", user)
+    // console.log("waht is the user from navbar", user)
     return ( 
         <nav>
         <header className=" p-1 flex justify-between items-center "> {/* Added 'items-center' class */}

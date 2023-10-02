@@ -38,7 +38,7 @@ function Account () {
         }
     }
 
-    console.log("after i logged out",user)
+    // console.log("after i logged out",user)
 
     function handleLinkClick(link) {
         setActiveLink(link);
