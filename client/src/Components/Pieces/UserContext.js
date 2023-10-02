@@ -6,6 +6,7 @@ export const UserContext = createContext({});
 function UserContextProvider({children, currentUser, setCurrentUser}) {
     
     const [user, setUser] = useState(null);
+    const [loggedIn, setLoggedIn] = useState(false);
     
     useEffect( () => {
         if (!user) {
@@ -13,6 +14,7 @@ function UserContextProvider({children, currentUser, setCurrentUser}) {
             .then((response) => {
                 console.log(response.data)
                 setUser(response.data)
+                setLoggedIn(true)
                 })
         }});
     
@@ -23,7 +25,7 @@ function UserContextProvider({children, currentUser, setCurrentUser}) {
     
 
     return (
-        <UserContext.Provider value={{user, setUser}} >
+        <UserContext.Provider value={{user, setUser, loggedIn}} >
             { children }
         </UserContext.Provider>
     );

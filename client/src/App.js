@@ -1,9 +1,11 @@
 import {BrowserRouter, Routes, Route, Outlet, Navigate} from 'react-router-dom';
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 import Layout from './Layout'
 import LoginPage from './Components/Routes/LoginPage'
 import Register from './Components/Routes/Register'
-import axios from 'axios'
+import AccountPage from './Components/Routes/AccountPage';
+
 // import { UserContextProvider } from './Components/Pieces/UserContext';
 import UserContextProvider from './Components/Pieces/UserContext';
 // import IndexPage from './Components/Routes/IndexPage'
@@ -28,6 +30,9 @@ function App() {
                     <Route path="/" element={<Layout />} >
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/account/:subpage?" element={<AccountPage />} />
+                        {/* <Route path="/account/wishlist" element={<AccountPage />} />
+                        <Route path="/account/listings" element={<AccountPage />} /> */}
                     </Route>
                 </Routes>
             </BrowserRouter>
