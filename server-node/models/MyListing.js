@@ -8,7 +8,6 @@ const myListingSchema = new mongoose.Schema({
     description: String,
     price: Number, 
     color: String,
-    category: String,
     size: mongoose.Schema.Types.Mixed,
 })
 
