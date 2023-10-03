@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import axios from "axios";
 import NewListForm from "../Pieces/NewListForm";
 import ColorsForm from "../Pieces/ColorsForm";
 
@@ -12,11 +13,19 @@ function NewListing() {
     const [images, setImages] = useState([])
 
     function uploadImage (e) {
+        e.preventDefault()
         const files = e.target.files;
         console.log({files})
-        const data = newFormData();
-        formData.
-        axios.post('/upload', data)
+        const data = new FormData();
+        data.set('images', files)
+        axios.post('/uploadImages', data, {
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
+        }).then(data=> {
+            console.log(data)
+            setImages([...images, data])
+        })
 
     }
 

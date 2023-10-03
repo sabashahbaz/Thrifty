@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
 const cookieParser = require('cookie-parser');
+const multer = require('multer')
 
 require('dotenv').config();
 const app = express();
@@ -75,6 +76,12 @@ app.get('/profile', (req, res) => {
     } else {
         res.json(null);
     }
+})
+
+
+const imageMiddleware = multer({dest:'uploads'})
+app.post('/uploadImages',imageMiddleware.array('images', 50), (req,res) => {
+    res.json(res.files);
 })
 
 app.post('/logout', (req,res) => {
