@@ -51,3 +51,6 @@ client/src/Components/assets/heroimage.png
 client/src/Components/assets/bg.mp4
 client/src/Components/Routes/CSS/
 LICENSE
+
+.secret.js
+*/secret.js

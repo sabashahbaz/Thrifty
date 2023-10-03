@@ -1,41 +1,62 @@
 import {BrowserRouter, Routes, Route, Outlet, Navigate} from 'react-router-dom';
 import React, { useEffect, useState } from "react";
+import axios from 'axios'
 import Layout from './Layout'
 import LoginPage from './Components/Routes/LoginPage'
-import IndexPage from './Components/Routes/IndexPage'
-import Navbar from './Components/Pieces/Navbar'
+import Register from './Components/Routes/Register'
+import AccountPage from './Components/Routes/AccountPage';
+
+// import { UserContextProvider } from './Components/Pieces/UserContext';
+import UserContextProvider from './Components/Pieces/UserContext';
+import MyListing from './Components/Routes/MyListing';
+import WishListPage from './Components/Routes/WishListPage';
+import Navbar from './Components/Pieces/Navbar';
+import NewListing from './Components/Routes/NewListingPage';
+// import IndexPage from './Components/Routes/IndexPage'
+// import Navbar from './Components/Pieces/Navbar'
 
 
 // The main app page, pareant. landing page, idk //
 
+axios.defaults.baseURL = 'http://localhost:4000'
 function App() {
 
-    const [currentUser, setCurrentUser] = useState(null)
-    const [products, setProductsList] = useState([])
-    const [wishlist, setWishlist] = useState([])
-    const [featuredProduct, setFeaturedProduct] = useState([])
 
-    
+    const [currentUser, setCurrentUser] = useState(null)
+ 
 
     return (
         <BrowserRouter>
-        <Routes >
-            <Route path="/" element={<Layout />} >
-                <Route path="/login" element={<LoginPage />} />
-            </Route>
-        </Routes>
-        
-        </BrowserRouter>
-        
+        <UserContextProvider currentUser={currentUser} setCurrentUser={setCurrentUser}>
+            <Navbar></Navbar>
+                <Routes >
+                    {/* <Route path="/" element={<Layout />} > */}
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="account" element={<AccountPage />}>
+                            <Route path="wishlist" element={<WishListPage />} />
+                            <Route path="listings" element={<MyListing />} >
+                                <Route path="new" element={<NewListing />}/>
+                            </Route>
 
-    
+
+                        </Route>
+
+                      
+                
+                    {/* </Route> */}
+                </Routes>
+        </UserContextProvider>
+        </BrowserRouter>
     )
-        }
+};
 
 
 export default App;
 
-
+// const [products, setProductsList] = useState([])
+// const [wishlist, setWishlist] = useState([])
+// const [featuredProduct, setFeaturedProduct] = useState([])
 
 
 //    //check_session 

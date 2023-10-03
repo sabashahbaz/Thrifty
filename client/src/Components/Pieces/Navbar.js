@@ -1,16 +1,18 @@
-import React from 'react';
-// import styled from 'styled-components';
+import React, { useState, useContext } from "react";
 import logo from "../../Assets/logo.png";
 import {Link} from 'react-router-dom';
+import { UserContext } from "../Pieces/UserContext.js";
 import ProductSearchBar from "./ProductSearchBar";
 import UserDetails from './UserDetails';
 
 function Navbar ({ setProductsList, currentUser, logout }) {
 
+    const {user} = useContext(UserContext);
+    // console.log("waht is the user from navbar", user)
     return ( 
         <nav>
         <header className=" p-1 flex justify-between items-center "> {/* Added 'items-center' class */}
-            <a><img src={logo} className="h-24" /></a>
+            <Link to='/'><img src={logo} className="h-24" /></Link>
         
                 <form className="flex border border-gray-300 rounded-full py-1 px-7 w-1/2 h-8 shadow-md shadow-gray-300 mr-20 ">
                 <input
@@ -26,7 +28,7 @@ function Navbar ({ setProductsList, currentUser, logout }) {
                     </svg>
                 </button>
                 </form>
-            <Link to={'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-2 w-100 h-9 shadow-md shadow-gray-300">
+            <Link to={user? '/account' :'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-2 w-100 h-9 shadow-md shadow-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
@@ -35,6 +37,12 @@ function Navbar ({ setProductsList, currentUser, logout }) {
                         <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
                     </svg>
                 </div>
+                {user ?  (
+                    <div>
+                        {user.firstName}
+                    </div>
+                ): null}
+    
             </Link>
         </header>
     </nav>
