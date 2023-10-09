@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import NewListForm from "../Pieces/NewListForm";
 import ColorsForm from "../Pieces/ColorsForm";
+import { Navigate } from "react-router-dom";
 
 function NewListing() {
 
@@ -11,6 +12,8 @@ function NewListing() {
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
     const [images, setImages] = useState([])
+    const [colors, selectedColors] = useState("")
+    const [redirect, setRedirect] = useState("")
 
     //upload images from computer to post as new listing
     function uploadImage (e) {
@@ -33,9 +36,24 @@ function NewListing() {
         })
     };
 
+    async function addNewListing(e){
+        e.preventDefault()
+        const {data} = await axios.post('/addNewListing',{
+            title, brand, 
+            size, description, 
+            price, images, colors, 
+        }, {withCredentials: true});
+        console.log(data) // the response is already in JSON format, so just access the data
+        setRedirect('/account/listings');
+    }
+
+    if (redirect) {
+        return <Navigate to={redirect} />
+    }
+    
     return(
         <div className=" px-10 w-1/2">
-            <form>
+            <form onSubmit={addNewListing}>
                 <NewListForm
                 title={title} setTitle={setTitle}
                 brand={brand} setBrand={setBrand}
@@ -45,7 +63,7 @@ function NewListing() {
                 images={images} setImages={setImages}
                 uploadImage={uploadImage}
                 />
-                <ColorsForm />
+                <ColorsForm selected={colors} onChange={selectedColors}/>
             </form>
         </div>
     )

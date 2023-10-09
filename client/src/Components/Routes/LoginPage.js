@@ -19,6 +19,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
                 email, password}, {withCredentials: true});
                 setUser(response.data)
                 console.log(response.data)
+                console.log(response)
                 if (response.status === 200) {
                     alert('Login successful');
                     setRedirect(true)
@@ -62,53 +63,3 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
         </div>
     )
 };
-
-
-
-// <form className="form-container" onSubmit={handleSubmit}>
-// <h1>Login to your account</h1>
-// <div className="form-group">
-//     <h2>Username</h2>
-//     <input
-//         className="input-field"
-//         type="text"
-//         onChange={handleChangeUsername}
-//         placeholder="Enter your username"
-//         value={username}
-//     />
-//     <input type="email" placeholder="you@email.com" />
-// </div>
-// <div className="form-group">
-//     <h2>Password</h2>
-//     <input
-//         className="input-field"
-//         type="password"
-//         onChange={handleChangePassword}
-//         placeholder="Enter your password"
-//         value={password}
-//     />
-// </div>
-// <input className="submit-button" type="submit" value="Sign in" />
-// </form>
-
-
-    //  // let history = useHistory();
-    //   async  function handleSubmit (e) {
-    //     e.preventDefault();
-    //     let currentUserResponse;
-    //     await fetch('/login', {
-    //         method: 'POST',
-    //         headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accepts': 'application/json'
-    //         },
-    //         body: JSON.stringify({"username": username, "password": password })
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         currentUserResponse = data;
-    //         setCurrentUser(data);
-    //     });
-    //     // if (!currentUserResponse.error) history.push('/')
-
-    // }

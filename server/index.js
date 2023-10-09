@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
+const MyListing = require('./models/MyListing.js')
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
 const fs = require('fs')
@@ -17,8 +18,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads')) //using express middleware (express.static) to make files assessible in thr browser
 app.use(cors({
-    credentials: true,
     origin: 'http://localhost:3100',
+    credentials: true,
 }));
 mongoose.connect(process.env.MONGO_URL)
 
@@ -43,11 +44,11 @@ app.post('/register', async (req,res) => {
 
 app.post('/login', async (req,res) => {
     const {email, password} = req.body;
-    console.log("helloooo",req.body);
+    // console.log("helloooo",req.body);
     const user = await User.findOne({email});
-    console.log("meow", user)
+    // console.log("meow", user)
     if (user) {
-        console.log("who did i find",user)
+        // console.log("who did i find",user)
         const passwordOk = bcrypt.compareSync(password, user.password);
         if (passwordOk) {
             res.status(200)
@@ -58,13 +59,13 @@ app.post('/login', async (req,res) => {
                 jwtSecret, {}, (err, token)=> {
                 if (err) throw err;
                 res.cookie('token', token).json(user);
-                console.log("did it set",res.cookie('token'));
-            } ) 
+                console.log(token)
+            }) 
         } else {
         res.status(422).json('password is incorrect');
-    }
+        }
     } else {
-    res.json("user not found");
+        res.json("user not found");
     }
 });
 
@@ -101,9 +102,26 @@ app.post('/uploadImages',imageMiddleware.array('images', 50), (req,res) => {
     res.json(uploadedFiles); // send client the response
 })
 
+app.post('/addNewListing', async (req,res) => {
+    const {token} = req.cookies;
+    console.log(token)
+    const {
+        title, brand, images, description, price, colors
+    } = req.body
+    jwt.verify(token, jwtSecret, async (err, userData) => { 
+        if (err) throw err;
+    const ListingData = await MyListing.create({
+        owner: userData.id,
+        title, brand, images, description, price, colors
+    })
+    res.json(ListingData)
+})
+})
+
 app.post('/logout', (req,res) => {
     res.cookie('token', ' ').json(true);
 });
+
 
 app.get('/test', (req, res) => {
     res.json('Hello World!');
