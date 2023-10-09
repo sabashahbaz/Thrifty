@@ -3,7 +3,7 @@ import logo from "../../Assets/logo.png";
 import {Link} from 'react-router-dom';
 import { UserContext } from "../Pieces/UserContext.js";
 import ProductSearchBar from "./ProductSearchBar";
-import UserDetails from './UserDetails';
+
 
 function Navbar ({ setProductsList, currentUser, logout }) {
 
