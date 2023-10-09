@@ -8,8 +8,6 @@ export default function DisplayWishlist ({ product, wishlist}) {
     
     console.log("product")
 
-
-
     return (
         <div className="product-item">
             <h1>{wishlist?.title}</h1>

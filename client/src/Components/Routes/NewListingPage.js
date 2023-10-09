@@ -12,22 +12,26 @@ function NewListing() {
     const [price, setPrice] = useState("")
     const [images, setImages] = useState([])
 
+    //upload images from computer to post as new listing
     function uploadImage (e) {
         e.preventDefault()
-        const files = e.target.files;
-        console.log({files})
-        const data = new FormData();
-        data.set('images', files)
-        axios.post('/uploadImages', data, {
+        const files = e.target.files; // gets the files uploaded by the user
+        console.log("files",{files})
+        const data = new FormData(); // new FormData object is created (construct a set of key/value pairs)
+        for (let i = 0; i < files.length; i++) { 
+            data.append('images', files[i]);  // append each file to the data object wit the key "images", to create a key of images
+        }
+        axios.post('/uploadImages', data, { // post request, sending the data (array of fselected iles)
             headers: {
                 'Content-type': 'multipart/form-data'
             }
-        }).then(data=> {
-            console.log(data)
-            setImages([...images, data])
+        }).then(response=> {
+            const {data:filenames} = response // assings data to the filename 
+            setImages(prev => {
+                return [...prev, ...filenames]
+            })
         })
-
-    }
+    };
 
     return(
         <div className=" px-10 w-1/2">
