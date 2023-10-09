@@ -70,7 +70,6 @@ app.post('/login', async (req,res) => {
 });
 
 app.get('/profile', (req, res) => {
-    console.log("meio")
     const {token} = req.cookies;
     if (token) {
         jwt.verify(token, jwtSecret, async (err, userData) => { 
@@ -97,25 +96,61 @@ app.post('/uploadImages',imageMiddleware.array('images', 50), (req,res) => {
         const newPath = path + '.' + ext; //add the last part to the path, which is the temp location of the file
         fs.renameSync(path, newPath) // remaning the original path to the new path name 
         uploadedFiles.push(newPath.replace('uploads/', '')); // add new path to loaded files array 
-
     }
     res.json(uploadedFiles); // send client the response
 })
 
+//adding a new listing 
 app.post('/addNewListing', async (req,res) => {
     const {token} = req.cookies;
     console.log(token)
     const {
-        title, brand, images, description, price, colors
+        title, brand, addedImages, description, price, colors, size
     } = req.body
+    console.log("req body",req.body)
     jwt.verify(token, jwtSecret, async (err, userData) => { 
         if (err) throw err;
     const ListingData = await MyListing.create({
         owner: userData.id,
-        title, brand, images, description, price, colors
+        title, brand, images:addedImages, description, price, colors, size
+        
     })
+    console.log("what is being added",ListingData)
     res.json(ListingData)
 })
+})
+
+//to have the listings displayed
+app.get('/listings', (req, res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, async (err, user) => {
+        const {id} = user;
+        res.json( await MyListing.find({owner:id}) );
+    })
+})
+
+//so the form will have the data filled out 
+app.get('/listings/:id', async (req,res) => {
+    const {id} = req.params;
+    res.json(await MyListing.findById(id))
+})
+
+//update new listing 
+app.put('/updataeNewListing/', async(req,res) => {
+    const {token} = req.cookies;
+    const { id, title, brand, images, description, price, colors, size
+    } = req.body;
+    jwt.verify(token, jwtSecret, async (err, user) => {
+        const listingData = await MyListing.findById(id);
+        if (user.id == listingData.owner.toString()) {
+            listingData.set({
+                title, brand, images, description, price, colors, size
+            });
+            await listingData.save();
+            res.json('ok');
+        }
+    })
+    
 })
 
 app.post('/logout', (req,res) => {

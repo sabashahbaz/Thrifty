@@ -39,6 +39,7 @@ function App() {
                             <Route path="wishlist" element={<WishListPage />} />
                             <Route path="listings" element={<MyListing />} >
                                 <Route path="new" element={<NewListing />}/>
+                                <Route path=":id" element={<NewListing />}/>
                             </Route>
                         </Route>
                     {/* </Route> */}

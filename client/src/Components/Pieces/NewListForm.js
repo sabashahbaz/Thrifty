@@ -1,7 +1,12 @@
 import React from 'react';
 
-function NewListForm ({uploadImage, title, setTitle, brand, setBrand, size, setSize, description, setDescription, price, setPrice, images, setImages}) {
+function NewListForm ({uploadImage, 
+    title, setTitle,brand, 
+    setBrand, size, setSize, 
+    description, setDescription, 
+    price, setPrice, addedImages, setImages}) {
 
+    // console.log("from the form",addedImages)
     return(
         <div>
             <h2 className="text-2xl">Title</h2>
@@ -46,7 +51,7 @@ function NewListForm ({uploadImage, title, setTitle, brand, setBrand, size, setS
                 <h2 className="text-2xl mt-4">Images</h2>
                 <p className="text-sm text-stone-300"> upload images of your product</p>
                 <div className="mt-2 grid gap-2 grid-cols-3 ">
-                    {images.length > 0 && images.map((image,index) => (
+                    {addedImages.length > 0 && addedImages.map((image,index) => (
                         <div className="h-32 flex" key={index}>
                             <img className = "rounded-2xl w-full object-cover" src={`http://localhost:4000/uploads/${image}`}/>
                         </div>
