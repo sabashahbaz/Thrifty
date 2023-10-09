@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
+const MyListing = require('./models/MyListing.js')
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
 const fs = require('fs')
@@ -17,8 +18,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads')) //using express middleware (express.static) to make files assessible in thr browser
 app.use(cors({
-    credentials: true,
     origin: 'http://localhost:3100',
+    credentials: true,
 }));
 mongoose.connect(process.env.MONGO_URL)
 
@@ -43,11 +44,11 @@ app.post('/register', async (req,res) => {
 
 app.post('/login', async (req,res) => {
     const {email, password} = req.body;
-    console.log("helloooo",req.body);
+    // console.log("helloooo",req.body);
     const user = await User.findOne({email});
-    console.log("meow", user)
+    // console.log("meow", user)
     if (user) {
-        console.log("who did i find",user)
+        // console.log("who did i find",user)
         const passwordOk = bcrypt.compareSync(password, user.password);
         if (passwordOk) {
             res.status(200)
@@ -58,18 +59,17 @@ app.post('/login', async (req,res) => {
                 jwtSecret, {}, (err, token)=> {
                 if (err) throw err;
                 res.cookie('token', token).json(user);
-                console.log("did it set",res.cookie('token'));
-            } ) 
+                console.log(token)
+            }) 
         } else {
         res.status(422).json('password is incorrect');
-    }
+        }
     } else {
-    res.json("user not found");
+        res.json("user not found");
     }
 });
 
 app.get('/profile', (req, res) => {
-    console.log("meio")
     const {token} = req.cookies;
     if (token) {
         jwt.verify(token, jwtSecret, async (err, userData) => { 
@@ -96,14 +96,67 @@ app.post('/uploadImages',imageMiddleware.array('images', 50), (req,res) => {
         const newPath = path + '.' + ext; //add the last part to the path, which is the temp location of the file
         fs.renameSync(path, newPath) // remaning the original path to the new path name 
         uploadedFiles.push(newPath.replace('uploads/', '')); // add new path to loaded files array 
-
     }
     res.json(uploadedFiles); // send client the response
+})
+
+//adding a new listing 
+app.post('/addNewListing', async (req,res) => {
+    const {token} = req.cookies;
+    console.log(token)
+    const {
+        title, brand, addedImages, description, price, colors, size
+    } = req.body
+    console.log("req body",req.body)
+    jwt.verify(token, jwtSecret, async (err, userData) => { 
+        if (err) throw err;
+    const ListingData = await MyListing.create({
+        owner: userData.id,
+        title, brand, images:addedImages, description, price, colors, size
+        
+    })
+    console.log("what is being added",ListingData)
+    res.json(ListingData)
+})
+})
+
+//to have the listings displayed
+app.get('/listings', (req, res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, async (err, user) => {
+        const {id} = user;
+        res.json( await MyListing.find({owner:id}) );
+    })
+})
+
+//so the form will have the data filled out 
+app.get('/listings/:id', async (req,res) => {
+    const {id} = req.params;
+    res.json(await MyListing.findById(id))
+})
+
+//update new listing 
+app.put('/updataeNewListing/', async(req,res) => {
+    const {token} = req.cookies;
+    const { id, title, brand, images, description, price, colors, size
+    } = req.body;
+    jwt.verify(token, jwtSecret, async (err, user) => {
+        const listingData = await MyListing.findById(id);
+        if (user.id == listingData.owner.toString()) {
+            listingData.set({
+                title, brand, images, description, price, colors, size
+            });
+            await listingData.save();
+            res.json('ok');
+        }
+    })
+    
 })
 
 app.post('/logout', (req,res) => {
     res.cookie('token', ' ').json(true);
 });
+
 
 app.get('/test', (req, res) => {
     res.json('Hello World!');

@@ -12,6 +12,7 @@ import MyListing from './Components/Routes/MyListing';
 import WishListPage from './Components/Routes/WishListPage';
 import Navbar from './Components/Pieces/Navbar';
 import NewListing from './Components/Routes/NewListingPage';
+import Profile from './Components/Routes/Profile'
 // import IndexPage from './Components/Routes/IndexPage'
 // import Navbar from './Components/Pieces/Navbar'
 
@@ -23,7 +24,7 @@ function App() {
 
 
     const [currentUser, setCurrentUser] = useState(null)
- 
+
 
     return (
         <BrowserRouter>
@@ -34,16 +35,13 @@ function App() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="account" element={<AccountPage />}>
+                            <Route path="profile" element={<Profile />} />
                             <Route path="wishlist" element={<WishListPage />} />
                             <Route path="listings" element={<MyListing />} >
                                 <Route path="new" element={<NewListing />}/>
+                                <Route path=":id" element={<NewListing />}/>
                             </Route>
-
-
                         </Route>
-
-                      
-                
                     {/* </Route> */}
                 </Routes>
         </UserContextProvider>

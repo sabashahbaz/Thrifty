@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import NewListForm from "../Pieces/NewListForm";
 import ColorsForm from "../Pieces/ColorsForm";
+import { Navigate, useParams } from "react-router-dom";
 
 function NewListing() {
 
@@ -10,8 +11,36 @@ function NewListing() {
     const [size, setSize] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
-    const [images, setImages] = useState([])
+    const [addedImages, setImages] = useState([])
+    const [colors, selectedColors] = useState("")
+    const [redirect, setRedirect] = useState("")
+    const {id} = useParams()
 
+
+    //setting use state so the form will have the data filled out to be able to update the form
+    useEffect(() => {
+        if(!id) {
+            return;
+        }
+        axios.get('/listings/' +id)
+        .then(response => {
+            const {data} = response;
+            setTitle(data.title);
+            setBrand(data.brand);
+            setDescription(data.description)
+            setSize(data.size);
+            setImages(data.images);
+            selectedColors(data.colors);
+            setSize(data.size);
+            setPrice(data.price)
+
+            console.log("addedImages", addedImages, setImages)
+            console.log(response.data)
+        })
+    }, [id])
+
+    
+    
     //upload images from computer to post as new listing
     function uploadImage (e) {
         e.preventDefault()
@@ -27,25 +56,59 @@ function NewListing() {
             }
         }).then(response=> {
             const {data:filenames} = response // assings data to the filename 
+            // setImages(prev => {
+            //     return [...prev, ...filenames]
             setImages(prev => {
                 return [...prev, ...filenames]
             })
+            console.log("added images frmo upload",addedImages)
         })
     };
 
+
+
+    console.log("addedImages",addedImages)
+    //add new listing to database OR updating existing listing
+    async function saveNewListing(e){
+        e.preventDefault()
+        if (id) {
+            //update
+            await axios.put('/updateNewListing',{
+                id,
+                title, brand, 
+                size, description, 
+                price, addedImages, colors, 
+            }, {withCredentials: true});
+            setRedirect(true);
+        } else {
+            //add new listing
+            console.log("image post req", addedImages)
+            await axios.post('/addNewListing',{
+                title, brand, 
+                size, description, 
+                price, addedImages, colors, 
+            }, {withCredentials: true});
+            
+            setRedirect(true);
+        }
+    }
+    if (redirect) {
+        return <Navigate to={'/account/listings'} />
+    }
+
     return(
         <div className=" px-10 w-1/2">
-            <form>
+            <form onSubmit={saveNewListing}>
                 <NewListForm
                 title={title} setTitle={setTitle}
                 brand={brand} setBrand={setBrand}
                 size={size} setSize={setSize}
                 description={description} setDescription={setDescription}
                 price={price} setPrice={setPrice}
-                images={images} setImages={setImages}
+                addedImages={addedImages} setImages={setImages}
                 uploadImage={uploadImage}
                 />
-                <ColorsForm />
+                <ColorsForm selected={colors} onChange={selectedColors}/>
             </form>
         </div>
     )

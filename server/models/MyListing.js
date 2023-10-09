@@ -4,11 +4,11 @@ const myListingSchema = new mongoose.Schema({
     owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     title: String,
     brand: String,
-    image: [String],
+    images: [String],
     description: String,
     price: Number, 
-    color: String,
-    size: mongoose.Schema.Types.Mixed,
+    colors: [String],
+    size: String,
 })
 
 
