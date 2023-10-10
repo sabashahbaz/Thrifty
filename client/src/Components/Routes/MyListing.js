@@ -14,13 +14,15 @@ function MyListing(){
     useEffect(() => {
         axios.get('/listings', {withCredentials: true})
         .then(({data}) => {
+            // console.log("what is data from fetch",data)
             setListings(data)
+            
         })
     }, [])
 
-    console.log("from use effect",listings)
+    // console.log("from use effect to display on mylisting page",listings)
 
-    //image er
+    
     return(
         <div>
         <div className="flex justify-center items-center">
@@ -37,8 +39,8 @@ function MyListing(){
         <div className ="mt-4 p-4"> 
             {listings.map(listing => (
                 <Link to={'/account/listings/' +listing._id} className="flex cursor-pointer mb-3 items-start gap-4 bg-gray-100 p-4 rounded-2xl">
-                <div className="w-32 h-32 bg-gray-300">
-                    <img src={'http://localhost:4000/uploads/' + listing.images[0]} alt="" className="w-full h-full object-cover" />
+                <div className=" flex w-32 h-32 bg-gray-300">
+                    <img className="object-cover" src={`http://localhost:4000/uploads/${listing.images[0]}`} alt="" className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-grow">
                     <h2 className="text-xl">{listing.title}</h2>

@@ -131,27 +131,43 @@ app.get('/listings', (req, res) => {
 
 //so the form will have the data filled out 
 app.get('/listings/:id', async (req,res) => {
+    console.log("req", req)
     const {id} = req.params;
     res.json(await MyListing.findById(id))
 })
 
-//update new listing 
-app.put('/updataeNewListing/', async(req,res) => {
-    const {token} = req.cookies;
-    const { id, title, brand, images, description, price, colors, size
-    } = req.body;
+
+app.put('/updateNewListing/', async (req, res) => {
+    const { token } = req.cookies;
+    const { id, title, brand, images, description, price, colors, size } = req.body;
+    console.log("what is happening", req.body);
     jwt.verify(token, jwtSecret, async (err, user) => {
         const listingData = await MyListing.findById(id);
         if (user.id == listingData.owner.toString()) {
-            listingData.set({
-                title, brand, images, description, price, colors, size
-            });
+            // Only update fields that need to be updated
+            listingData.title = title;
+            listingData.brand = brand;
+            listingData.description = description;
+            listingData.price = price;
+            listingData.colors = colors;
+            listingData.size = size;
+
+            // Update images only if new images are provided
+            if (images && images.length > 0) {
+                listingData.images = images;
+            }
+
             await listingData.save();
             res.json('ok');
         }
-    })
-    
-})
+    });
+});
+
+
+
+
+
+
 
 app.post('/logout', (req,res) => {
     res.cookie('token', ' ').json(true);

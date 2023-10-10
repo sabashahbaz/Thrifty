@@ -4,7 +4,7 @@ import NewListForm from "../Pieces/NewListForm";
 import ColorsForm from "../Pieces/ColorsForm";
 import { Navigate, useParams } from "react-router-dom";
 
-function NewListing() {
+function NewListing({setListings}) {
 
     const [title, setTitle] = useState("")
     const [brand, setBrand] = useState("")
@@ -33,9 +33,9 @@ function NewListing() {
             selectedColors(data.colors);
             setSize(data.size);
             setPrice(data.price)
-
             console.log("addedImages", addedImages, setImages)
-            console.log(response.data)
+            console.log("booo",response.data)
+            console.log("booo",response.data.images)
         })
     }, [id])
 
@@ -73,23 +73,26 @@ function NewListing() {
         e.preventDefault()
         if (id) {
             //update
+            console.log("update", addedImages)
             await axios.put('/updateNewListing',{
                 id,
                 title, brand, 
                 size, description, 
                 price, addedImages, colors, 
             }, {withCredentials: true});
+            window.location.reload(true);
             setRedirect(true);
+            
         } else {
             //add new listing
-            console.log("image post req", addedImages)
             await axios.post('/addNewListing',{
                 title, brand, 
                 size, description, 
                 price, addedImages, colors, 
             }, {withCredentials: true});
-            
+            window.location.reload(true);
             setRedirect(true);
+
         }
     }
     if (redirect) {
