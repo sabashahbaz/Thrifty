@@ -198,8 +198,8 @@ app.get('/searchProducts/:query', async (req, res) => {
             price: product.price_amount,
             size: product.size_obj.display_with_size_system,
             description: product.description,
-            images: product.pictures.map(picture => picture.url),
-            coverImage: product.pictures.picture_url
+            // images: product.pictures.map(picture => picture.url),
+            coverImage: product.picture_url
         }));
 
     res.json({ data: filteredData });

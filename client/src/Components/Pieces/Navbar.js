@@ -14,7 +14,7 @@ function Navbar ({ setSearchedProducts, currentUser, logout }) {
         <header className=" p-1 flex justify-between items-center "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
         
-            <ProductSearchBar setSeachedProducts={setSearchedProducts} />
+            <ProductSearchBar setSearchedProducts={setSearchedProducts} />
             <Link to={user ? '/account' :'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-2 w-100 h-9 shadow-md shadow-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

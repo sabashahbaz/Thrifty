@@ -15,9 +15,9 @@ function ProductSearchBar({setSearchedProducts}) {
         e.preventDefault()
         console.log("inside search products")
         axios.get(`/searchProducts/${newSearch}`)
-        .then(data => {
-            // setSearchedProducts(data)
-            console.log("data from search bar",data)
+        .then(response => {
+            setSearchedProducts(response.data.data)
+            // console.log("data from search bar",data)
             navigate('/products')
         })
     };
