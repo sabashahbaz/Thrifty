@@ -13,8 +13,9 @@ import WishListPage from './Components/Routes/WishListPage';
 import Navbar from './Components/Pieces/Navbar';
 import NewListing from './Components/Routes/NewListingPage';
 import Profile from './Components/Routes/Profile'
+import ProductsPage from './Components/Routes/ProductsPage';
 // import IndexPage from './Components/Routes/IndexPage'
-// import Navbar from './Components/Pieces/Navbar'
+
 
 
 // The main app page, pareant. landing page, idk //
@@ -24,16 +25,18 @@ function App() {
 
 
     const [currentUser, setCurrentUser] = useState(null)
+    const [searchedProducts, setSearchedProducts] = useState([])
 
 
     return (
         <BrowserRouter>
         <UserContextProvider currentUser={currentUser} setCurrentUser={setCurrentUser}>
-            <Navbar></Navbar>
+            <Navbar setSearchedProducts={setSearchedProducts}/>
                 <Routes >
                     {/* <Route path="/" element={<Layout />} > */}
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />} />
                         <Route path="account" element={<AccountPage />}>
                             <Route path="profile" element={<Profile />} />
                             <Route path="wishlist" element={<WishListPage />} />

@@ -12,7 +12,7 @@ function MyListing(){
 
     //to display all of the saved listings
     useEffect(() => {
-        axios.get('/listings', {withCredentials: true})
+        axios.get('/userListings', {withCredentials: true})
         .then(({data}) => {
             // console.log("what is data from fetch",data)
             setListings(data)
