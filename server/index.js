@@ -276,14 +276,6 @@ app.post('/addToWishlist', async (req, res) => {
     })
 });
 
-// function getUserDataFromReq(token) {
-//     return new Promise((resolve,reject)=> {
-//         jwt.verify(token, jwtSecret, async (err, userData) => {
-//             if(err) throw err;
-//             resolve(userData);
-//         });
-//     })   
-// }
 
 app.get('/wishlistProducts', async (req,res) => {
     const { token } = req.cookies;
@@ -303,7 +295,74 @@ app.get('/wishlistProducts', async (req,res) => {
     })
 })
 
+app.delete('/deleteFromWishlist/:itemId', async (req,res) => {
+    const {token} = req.cookies;
+    const {itemId} = req.params;
+    console.log("req body", req.params)
 
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        const deletedItem = await Wishlist.findOneAndRemove({
+            owner: userData.id,
+            'product.productId': itemId
+        })
+        if (!deletedItem) {
+            return res.status(404).json({ error: 'Item not found in the wishlist' });
+        }
+
+        res.json({message: "item deleted from wishlist"})
+    })
+})
+
+//get wishlist products from useEffect via product id 
+app.get('/searchWishlistByID/:id', async (req, res) => {
+    
+    const wishlistProductId = req.params.id
+
+    const options = {
+        method: 'GET',
+        url: 'https://poshmark.p.rapidapi.com/listing',
+        params: {
+            id: wishlistProductId,
+            domain: 'com'
+        },
+        headers: {
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': 'poshmark.p.rapidapi.com'
+        }
+    };
+    
+    try {
+        const response = await axios.request(options);
+
+    // Process and filter the data as needed
+        const wishlistProduct= response.data;
+
+        const filteredData = {
+            id: wishlistProduct.id,
+            title:wishlistProduct.title,
+            department: wishlistProduct.department.display,
+            category: {
+                category: wishlistProduct.category_v2.display, 
+                category_features: wishlistProduct.category_features.display},
+            colors: wishlistProduct.colors,
+            price: wishlistProduct.price_amount,
+            size: wishlistProduct.size_obj.display_with_size_system,
+            description: wishlistProduct.description,
+            images: wishlistProduct.pictures.map(picture => picture.url),
+            coverImage: wishlistProduct.picture_url,
+            brand: wishlistProduct.brand
+        };
+
+    res.json({ data: filteredData });
+        console.log({data: filteredData})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching and filtering data.' });
+    }
+})
 
 app.post('/logout', (req,res) => {
     res.cookie('token', ' ').json(true);
