@@ -14,6 +14,7 @@ import Navbar from './Components/Pieces/Navbar';
 import NewListing from './Components/Routes/NewListingPage';
 import Profile from './Components/Routes/Profile'
 import ProductsPage from './Components/Routes/ProductsPage';
+import DisplayProduct from './Components/Pieces/DisplayProduct';
 // import IndexPage from './Components/Routes/IndexPage'
 
 
@@ -36,7 +37,9 @@ function App() {
                     {/* <Route path="/" element={<Layout />} > */}
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />} />
+                        <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}>
+                            {/* <Route path=":id" element={<DisplayProduct/>}/> */}
+                        </Route>
                         <Route path="account" element={<AccountPage />}>
                             <Route path="profile" element={<Profile />} />
                             <Route path="wishlist" element={<WishListPage />} />
@@ -45,6 +48,7 @@ function App() {
                                 <Route path=":id" element={<NewListing  />}/>
                             </Route>
                         </Route>
+                        <Route path="/product/:id" element={<DisplayProduct/>}/> 
                     {/* </Route> */}
                 </Routes>
         </UserContextProvider>

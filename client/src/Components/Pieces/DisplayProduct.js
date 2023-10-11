@@ -1,33 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
 
-// this is the individal card that the product will be displayed in 
+// selected product will be displayed 
 
-export default function DisplayProduct ({ product, handleAddToWishlist, handleFeaturedProduct}) {
-    // console.log(product)
-    
-    function handleClick (e) {
-        handleAddToWishlist(product.id)
-    }
+function DisplayProduct ({ }) {
+    const [product, setProduct] = useState(null)
 
-    function handleClickedProduct(e) {
-        handleFeaturedProduct(product)
-    }
+    const {id} = useParams();
+
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        console.log("what is happening")
+        axios.get(`/searchProductsByID/${id}`)
+            .then((response) => {
+            setProduct(response.data.data);
+            console.log("did it work",response.data)
+        })
+        .catch((error) => {
+            console.error('Error fetching product details:', error);
+        });
+    }, [id]);
 
     return (
-        <div className="product-item">
-            <h1>{product?.title}</h1>
-            {/* <div className="product-details"> */}
-            <p>{product?.brand}</p>
-            <div className="image">
-                <img src={product?.image} />
+        <div className="mt-2  ml-5 bg-gray-100 -mx-8 px-8 py-4">
+            <div>
+                { product 
+                ?  <div>
+                        <div>
+                            <div>
+                                <h1 className = "text-3xl">{product.title}</h1>
+                                <a className =" my-2 block font-semibold underline" target="_blank" href={`https://www.google.com/search?q=${encodeURIComponent(product.brand)}`}>{product.brand}</a>
+                            </div>
+                            <div className = "w-1/2">
+                            <div className="grid grid-cols-[.5fr_2fr] mt-10">
+                                <div className="h-[600px] w-[150px] overflow-y-auto p-0">
+                                    {product.images.map((image) => (
+                                        <img src={image} className="m-0"/>
+                                    ))}
+                                </div>
+                                <img src={product.coverImage} className="m-0 h-[600px] w-[600px]"/>
+                            </div>
+
+                            </div>
+        
+                        </div>
+                        
+                    </div>
+
+                    
+                : <div>
+                    <img src ="https://i.pinimg.com/originals/df/d2/68/dfd2683c9701642c776e31d3b0d603a9.gif" />
+                </div>
+                }
+                
             </div>
-            <div className="details">
-                <p>{product?.description}</p>
-                <p>${product?.price}.00</p>
-                <button onClick={(e) => handleClick(e)}>Add to wishlist</button>
-            </div>
-            {/* </div> */}
         </div>
     )
 }
+
+export default DisplayProduct;
