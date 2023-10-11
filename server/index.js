@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
 const MyListing = require('./models/MyListing.js')
+const Wishlist = require('./models/Wishlist.js')
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
 const fs = require('fs')
@@ -258,6 +259,22 @@ app.get('/searchProductsByID/:id', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching and filtering data.' });
     }
 })
+
+app.post('/addToWishlist', async (req, res) => {
+    const { token } = req.cookies;
+    const { productId, title, price, size, image } = req.body;
+    console.log("req.body", req.body)
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) throw err;
+        
+        const newWishlistItem = await Wishlist.create({ 
+            owner: userData.id,
+            product: {productId, title, price, size ,image
+            }
+        });
+        res.json(newWishlistItem);
+    })
+});
 
 
 app.post('/logout', (req,res) => {
