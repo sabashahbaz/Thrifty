@@ -276,6 +276,34 @@ app.post('/addToWishlist', async (req, res) => {
     })
 });
 
+// function getUserDataFromReq(token) {
+//     return new Promise((resolve,reject)=> {
+//         jwt.verify(token, jwtSecret, async (err, userData) => {
+//             if(err) throw err;
+//             resolve(userData);
+//         });
+//     })   
+// }
+
+app.get('/wishlistProducts', async (req,res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        // console.log(userData.id)
+        if (err) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        try {
+            const wishlistItems = await Wishlist.find({owner:userData.id})
+            console.log(wishlistItems)
+            res.json(wishlistItems)
+        }catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Server error' });
+        }
+    })
+})
+
+
 
 app.post('/logout', (req,res) => {
     res.cookie('token', ' ').json(true);

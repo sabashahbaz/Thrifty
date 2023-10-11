@@ -17,17 +17,12 @@ import ProductsPage from './Components/Routes/ProductsPage';
 import DisplayProduct from './Components/Pieces/DisplayProduct';
 // import IndexPage from './Components/Routes/IndexPage'
 
-
-
-// The main app page, pareant. landing page, idk //
-
 axios.defaults.baseURL = 'http://localhost:4000'
+
 function App() {
-
-
     const [currentUser, setCurrentUser] = useState(null)
     const [searchedProducts, setSearchedProducts] = useState([])
-
+    
 
     return (
         <BrowserRouter>
@@ -58,62 +53,3 @@ function App() {
 
 
 export default App;
-
-// const [products, setProductsList] = useState([])
-// const [wishlist, setWishlist] = useState([])
-// const [featuredProduct, setFeaturedProduct] = useState([])
-
-
-//    //check_session 
-//    useEffect(() => {
-//     fetch('/check_session')
-//     .then(response => {
-//         if(response.ok) {
-//         response.json()
-//         .then(user => setCurrentUser(user))
-//         }
-//     })
-//     }, [])
-
-// //create account function
-// function createAccount(userInfo) {
-//     console.log(userInfo)
-//     fetch('/users', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accepts': 'application/json'
-//         },
-//         body: JSON.stringify(userInfo)
-//     })
-//         .then(response => response.json())
-//         .then(data => setCurrentUser(data))
-// };
-
-
-// function logout() {
-//     fetch('/logout', {method: 'DELETE'})
-//     .then(response => {if (response.ok) {setCurrentUser(null)}})
-//     console.log("logout")
-// }  
-
-// //FEATURED PRODUCT 
-// function handleFeaturedProduct(clickedProduct) {
-//     setFeaturedProduct(clickedProduct)
-// }
-
-// //WISHLIST 
-// function handleAddToWishlist(productToAdd) {
-//     fetch ("/add_to_wishlist", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/JSON",
-//         },
-//         body: JSON.stringify({"item_id": productToAdd}),
-//     })
-//     .then(res=>res.json())
-//     .then(data=> setWishlist(data));
-
-//     // setWishlist = ([...wishlist, data])
-//     console.log(wishlist)
-

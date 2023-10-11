@@ -53,3 +53,6 @@ node_modules
 /client/db.json
 /server/package.json
 /server/package-lock.json
+
+Pipfile
+Pipfile.lock
