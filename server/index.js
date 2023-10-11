@@ -246,7 +246,7 @@ app.get('/searchProductsByID/:id', async (req, res) => {
             price: product.price_amount,
             size: product.size_obj.display_with_size_system,
             description: product.description,
-            images: product.pictures.map(picture => picture.url_webp),
+            images: product.pictures.map(picture => picture.url),
             coverImage: product.picture_url,
             brand: product.brand
         };
