@@ -44,13 +44,12 @@ keys.py
 node_modules
 */node_modules
 
-# Jon's Changes (Temporary)
-client/src/Components/Pieces/CSS/Products.css
-client/src/Components/Pieces/SubscribeForm.js
-client/src/Components/assets/heroimage.png
-client/src/Components/assets/bg.mp4
-client/src/Components/Routes/CSS/
-LICENSE
 
 .secret.js
 */secret.js
+
+/client/package.json
+/client/package-lock.json
+/client/db.json
+/server/package.json
+/server/package-lock.json
