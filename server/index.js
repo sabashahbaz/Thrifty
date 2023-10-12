@@ -364,8 +364,10 @@ app.get('/searchWishlistByID/:id', async (req, res) => {
     }
 })
 
-app.post('/logout', (req,res) => {
-    res.cookie('token', ' ').json(true);
+app.delete('/logout', (req,res) => {
+    // res.cookie('token', ' ').json(true);
+    res.clearCookie('token')
+    res.status(204).end();;
 });
 
 
