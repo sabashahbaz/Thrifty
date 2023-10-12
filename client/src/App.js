@@ -38,6 +38,7 @@ function App() {
                         <Route path="listings/new" element={<NewListingPage />}/>
                         <Route path="listings/:id" element={<NewListingPage  />}/>
                         <Route path="/product/:id" element={<DisplayProduct/>}/> 
+                        <Route path="/shoppingCart"/>
                 </Routes>
         </UserContextProvider>
         </BrowserRouter>

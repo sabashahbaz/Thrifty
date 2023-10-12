@@ -15,7 +15,6 @@ function DisplayProduct ({ }) {
         if (!id) {
             return;
         }
-        console.log("what is happening")
         axios.get(`/searchProductsByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
@@ -30,7 +29,7 @@ function DisplayProduct ({ }) {
         setSelectedImage(image);
     }
     return (
-        <div className="mt-2  ml-5 bg-gray-100 -mx-8 px-8 py-4 ">
+        <div className="mt-2  ml-5 -mx-8 px-8 py-4 ">
             <div>
                 { product 
                 ?  <div className="mt-5">
@@ -47,8 +46,8 @@ function DisplayProduct ({ }) {
                     </div>
                 
                     <div className="flex flex-col ml-3">
-                        <h1 className="text-3xl">{product.title}</h1>
-                        <div className = "mt-7 ml-5">
+                        <h1 className="text-3xl ml-2">{product.title}</h1>
+                        <div className = "mt-4 ml-5">
                             <a className="my-2 block font-semibold underline text-4xl text-red-80 mb-5"
                                 target="_blank"
                                 href={`https://www.google.com/search?q=${encodeURIComponent(product.brand)}`}>
@@ -56,27 +55,33 @@ function DisplayProduct ({ }) {
                             <h2 className="text-2xl mt-7">${product.price.val}0</h2>
                             <h2 className="mt-5 text-2xl"> Size: {product.size}</h2>
                             <AddToWishlist productId={id} title={product.title} price={product.price.val} size={product.size} coverImage={product.coverImage}/>
-                            <div>
-                                <h2>Category</h2>
-                                <p>{product.category.category}</p>
-                                <h2>Colors</h2>
-                                {product.colors.map(color => (
-                                    <div>{color.name}</div>
-                                ))}
+                            <div className= " mt-4 flex inline gap-10">
+                                <div>
+                                    <h2 className = "font-semibold ">Category</h2>
+                                    <p>{product.category.category}</p>
+                                </div>
+                                <div>
+                                    <h2 className = "font-semibold ">Colors</h2>
+                                    {product.colors.map(color => (
+                                        <div>{color.name}</div>
+                                    ))}
+                                </div>
                             </div>
-                            <h2 className= "font-semibold text-xl">Description</h2>
-                            <p className="text-md leading-1">{product.description}</p>
-                            
-                        
+                            <h2 className= "font-semibold text-xl mt-4">Description</h2>
+                            <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>
+                        <div className= "text-xl mt-4">
+                            <button className= "bg-blue-200 rounded-xl p-1 w-40 ml-4">Add to cart</button>
+                        </div>
+                        
 
                     </div>
                 </div>
             </div>
 
                     
-                : <div>
-                    <img src ="https://i.pinimg.com/originals/df/d2/68/dfd2683c9701642c776e31d3b0d603a9.gif" />
+                : <div className="flex justify-center items-center h-screen">
+                    <img src ="https://www.onwebchat.com/img/spinner.gif" className="w-32 h-32 mb-8" />
                 </div>
                 }
                 
