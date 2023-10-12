@@ -36,14 +36,14 @@ function App() {
                         <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}>
                             {/* <Route path=":id" element={<DisplayProduct/>}/> */}
                         </Route>
-                        <Route path="account" element={<AccountPage />}>
+                        {/* <Route path="account" element={<AccountPage />}> */}
                             <Route path="profile" element={<Profile />} />
                             <Route path="wishlist" element={<WishListPage />}/>
                             <Route path="listings" element={<MyListing />} >
                                 <Route path="new" element={<NewListing />}/>
                                 <Route path=":id" element={<NewListing  />}/>
                             </Route>
-                        </Route>
+                        {/* </Route> */}
                         <Route path="/product/:id" element={<DisplayProduct/>}/> 
                         <Route path="/wishlist/:id" element={<DisplayWishListPage  />}/>
                     {/* </Route> */}
