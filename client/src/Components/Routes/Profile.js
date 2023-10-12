@@ -10,8 +10,8 @@ function Profile () {
     async function logout() {
         try {
             await axios.delete('/logout', { withCredentials: true });
-            // setUser(null);
-            window.location.reload()
+            setUser(null);
+            // window.location.reload()
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);

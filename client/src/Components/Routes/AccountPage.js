@@ -11,30 +11,17 @@ function Account () {
     const {user, loggedIn, setUser} = useContext(UserContext);
     const [activeLink, setActiveLink] = useState(null);
     const [redirect, setRedirect] = useState(null);
+ 
+    console.log("wht is the user from account page", user)
 
-    //doesnt work 
-    let { subpage } = useParams();
-    let classes = 'p-2 px-6';
-    if (subpage === undefined) {
-      subpage = 'profile'; // Set the default value
-      classes += ' bg-primary rounded-full'; // Add CSS classes when setting the default value
-    }
 
-    if (!loggedIn) {
-        return <Navigate to="/login" />
-    }
-
-    // async function logout() {
-    //     try {
-    //         await axios.post('/logout');
-    //         setUser(null);
-    //         navigate('/login');
-    //     } catch (error) {
-    //         console.error('Logout error:', error);
-    //     }
+    // if (!loggedIn) {
+    //     return "loading....."
     // }
 
-    // console.log("after i logged out",user)
+    // if (loggedIn && !user) {
+    //     return <Navigate to="/login" />
+    // }
 
     function handleLinkClick(link) {
         setActiveLink(link);
@@ -43,18 +30,6 @@ function Account () {
     function getLinkClasses(link) {
         return `inline-flex p-2 px-6 gap-1 ${activeLink === link ? 'bg-primary rounded-full' : ''}`
     }
-
-    // function getLinkClasses(link) {
-    //     let classes = `inline-flex p-2 px-6 gap-1`;
-    
-    //     if (activeLink === link) {
-    //         classes += ' bg-primary rounded-full';
-    //     } else {
-    //         classes += ' bg-red rounded-full';
-    //     }
-    
-    //     return classes;
-    // }
 
     //2:00 to fix the defaul to be on profile
     return (
@@ -106,3 +81,27 @@ export default Account;
             </div>
         )}
         </div> */ 
+
+
+
+    //doesnt work 
+    // let { subpage } = useParams();
+    // let classes = 'p-2 px-6';
+    // if (subpage === undefined) {
+    //   subpage = 'profile'; // Set the default value
+    //   classes += ' bg-primary rounded-full'; // Add CSS classes when setting the default value
+    // }
+    
+
+
+    // function getLinkClasses(link) {
+    //     let classes = `inline-flex p-2 px-6 gap-1`;
+    
+    //     if (activeLink === link) {
+    //         classes += ' bg-primary rounded-full';
+    //     } else {
+    //         classes += ' bg-red rounded-full';
+    //     }
+    
+    //     return classes;
+    // }

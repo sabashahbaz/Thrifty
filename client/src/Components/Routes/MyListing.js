@@ -8,21 +8,16 @@ function MyListing(){
     const location = useLocation();
     const [listings, setListings] = useState([])
 
-    // Define the path where you want to show the link
+
     const showLinkPath = '/account/listings';
 
     //to display all of the saved listings
     useEffect(() => {
         axios.get('/userListings', {withCredentials: true})
         .then(({data}) => {
-            // console.log("what is data from fetch",data)
             setListings(data)
-            
         })
     }, [])
-
-    // console.log("from use effect to display on mylisting page",listings)
-
     
     return(
         <div>
