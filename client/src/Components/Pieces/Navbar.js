@@ -5,30 +5,23 @@ import { UserContext } from "../Pieces/UserContext.js";
 import ProductSearchBar from "./ProductSearchBar";
 
 
-function Navbar ({ setProductsList, currentUser, logout }) {
+function Navbar ({ setSearchedProducts}) {
 
     const {user} = useContext(UserContext);
     console.log("wht is the user from navbar", user)
+
     return ( 
         <nav>
         <header className=" p-1 flex justify-between items-center "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
         
-                <form className="flex border border-gray-300 rounded-full py-1 px-7 w-1/2 h-8 shadow-md shadow-gray-300 mr-20 ">
-                <input
-                    className = "search-bar focus:outline-none flex-grow "
-                    type="text"
-                    placeholder="search products" 
-                    // onChange={handleChange}
-                    // value={newSearch}           
-                />
-                <button className="bg-primary p-1 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                </button>
-                </form>
-            <Link to={user ? '/account' :'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-2 w-100 h-9 shadow-md shadow-gray-300">
+            <ProductSearchBar setSearchedProducts={setSearchedProducts} />
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+            </div>
+            <Link to={user ? '/account/profile' :'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-2 w-100 h-9 shadow-md shadow-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
@@ -50,45 +43,4 @@ function Navbar ({ setProductsList, currentUser, logout }) {
 }
 
 export default Navbar;
-
-// const NavContainer = styled.nav `
-//     /* justify-content: space-between;
-//     align-items: center;
-//     height: 80px; */
-
-//     background-color: ;
-//     color: white;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     height: 80px;
-//     padding: 0 20px;
-
-//     .nav-center {
-//     display: flex;
-//     justify-content: space-between;
-//     width: 100%;
-//     }
-
-
-//     .logo {
-//         display: flex; 
-//         margin-top: 0px; 
-//         height: 80px;
-//         width: 270px;
-//     }
-//     .nav-links {
-//         letter-spacing: 2px;
-//         padding: 10px; 
-//         align-items: center;
-//         justify-content: center;
-//         display: flex;
-//         margin-top: 0px; 
-//     }
-//     .nav-link{
-//         letter-spacing: 2px;
-//         padding: 10px;
-//         align-items: center;
-//         justify-content: center;  
-//     }
 

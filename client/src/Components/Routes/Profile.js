@@ -9,15 +9,18 @@ function Profile () {
 
     async function logout() {
         try {
-            await axios.post('/logout');
+            await axios.delete('/logout', { withCredentials: true });
             setUser(null);
+            // window.location.reload()
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
         }
     }
     return (
-        <button onClick={logout} className="bg-primary p-2 w-1/2 rounded-2xl text-black"> Logout</button>
+        <div>
+            <button onClick={logout} className="bg-primary p-2 rounded-2xl text-black"> Logout</button>
+        </div>
     )
 
 }

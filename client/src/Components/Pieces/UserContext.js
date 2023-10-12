@@ -7,29 +7,16 @@ function UserContextProvider({children, currentUser, setCurrentUser}) {
     
     const [user, setUser] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
-    
-    // useEffect( () => {
-    //     if (!user) {
-    //         axios.get('/profile', {withCredentials: true})
-    //         .then((response) => {
-    //             // console.log(response.data)
-    //             setUser(response.data)
-    //             setLoggedIn(true)
-    //             })
-    //     }});
 
     useEffect(() => {
         // Check if the user is logged in by making a request to the /profile endpoint
         axios.get('/profile', { withCredentials: true })
             .then((response) => {
-                if (response.data) {
+            if (response.data) {
                     // User data exists, set the user and mark as logged in
                     setUser(response.data);
-                    setLoggedIn(true);
-                } else {
-                    // No user data in the response, indicating a logged-out state
-                    setUser(null); // Set user to null
-                    setLoggedIn(false); // Mark as logged out
+                    // setLoggedIn(true);
+                    console.log("from usercontext",response.data)
                 }
             })
             .catch((error) => {

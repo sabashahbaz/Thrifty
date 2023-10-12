@@ -5,7 +5,7 @@ import AddToWishlist from "../Pieces/AddToWishlist";
 
 // selected product will be displayed 
 
-function DisplayProduct ({ }) {
+function DisplayWishListPage ({ }) {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
@@ -16,7 +16,7 @@ function DisplayProduct ({ }) {
             return;
         }
         console.log("what is happening")
-        axios.get(`/searchProductsByID/${id}`)
+        axios.get(`/searchWishlistByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
             console.log("did it work",response.data)
@@ -85,6 +85,4 @@ function DisplayProduct ({ }) {
     )
 }
 
-export default DisplayProduct;
-
-
+export default DisplayWishListPage;
