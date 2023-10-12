@@ -27,7 +27,6 @@ app.use(cors({
 mongoose.connect(process.env.MONGO_URL)
 
 
-
 app.post('/register', async (req,res) => {
     console.log(req.body);
     const {firstName, lastName, email, password} = req.body;
@@ -165,6 +164,28 @@ app.put('/updateNewListing/', async (req, res) => {
         }
     });
 });
+
+//delete my listing 
+app.delete('/deleteListing/:itemId', (req,res) => {
+    const {token} = req.cookies;
+    const {itemId} = req.params;
+    console.log("req body", req.params)
+
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        const deletedItem = await MyListing.findOneAndRemove({
+            owner: userData.id,
+            _id: itemId
+        })
+        if (!deletedItem) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        res.json({message: "item deleted from wishlist"})
+    })
+})
 
 //get the products from Poshmark via user input
 app.get('/searchProducts/:query', async (req, res) => {
@@ -370,13 +391,12 @@ app.delete('/logout', (req,res) => {
     res.status(204).end();;
 });
 
-
 app.get('/test', (req, res) => {
     res.json('Hello World!');
-});
-
-//nodemon index.js  
+}); 
 
 app.listen(4000, () => {
     console.log('back-end listening on port 4000!');
 });
+
+//nodemon index.js 

@@ -21,11 +21,9 @@ function ProductsPage({searchedProducts}){
                         <h3 className = "text-md text-red-800"> {product.size}</h3>
                         <h3 className = "font-bold text-md"> ${product.price.val}0</h3>
                     </div>
-                    
                 </div>
                 </Link>
             ))}
-
         </div>
 
             )

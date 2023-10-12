@@ -18,7 +18,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
         const response = await axios.post('/login',{email, password}, {withCredentials: true})
         setUser(response.data)
         console.log(response.data)
-        navigate('/account/profile')
+        navigate('/')
     }
     
 

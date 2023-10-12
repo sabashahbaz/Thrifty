@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import NewListForm from "../Pieces/NewListForm";
 import ColorsForm from "../Pieces/ColorsForm";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function NewListing({setListings}) {
-
+function NewListingPage ({setListings}) {
+    const navigate = useNavigate()
     const [title, setTitle] = useState("")
     const [brand, setBrand] = useState("")
     const [size, setSize] = useState("")
@@ -13,16 +13,13 @@ function NewListing({setListings}) {
     const [price, setPrice] = useState("")
     const [addedImages, setImages] = useState([])
     const [colors, selectedColors] = useState("")
-    const [redirect, setRedirect] = useState("")
     const {id} = useParams()
 
 
     //setting use state so the form will have the data filled out to be able to update the form
     useEffect(() => {
-        if(!id) {
-            return;
-        }
-        axios.get('/listings/' +id)
+        if(!id) {return;} // if there is no id, return nothing 
+        axios.get('/listings/' +id) // if there an id present -> fetch the listing information 
         .then(response => {
             const {data} = response;
             setTitle(data.title);
@@ -33,14 +30,12 @@ function NewListing({setListings}) {
             selectedColors(data.colors);
             setSize(data.size);
             setPrice(data.price)
-            console.log("addedImages", addedImages, setImages)
-            console.log("booo",response.data)
-            console.log("booo",response.data.images)
-        })
-    }, [id])
+            // console.log("addedImages", addedImages, setImages)
+            // console.log("booo",response.data)
+            // console.log("booo",response.data.images)
+        });
+    }, [id]);
 
-    
-    
     //upload images from computer to post as new listing
     function uploadImage (e) {
         e.preventDefault()
@@ -61,13 +56,12 @@ function NewListing({setListings}) {
             setImages(prev => {
                 return [...prev, ...filenames]
             })
-            console.log("added images frmo upload",addedImages)
+            console.log("added images from upload",addedImages)
         })
     };
 
-
-
     console.log("addedImages",addedImages)
+
     //add new listing to database OR updating existing listing
     async function saveNewListing(e){
         e.preventDefault()
@@ -78,43 +72,41 @@ function NewListing({setListings}) {
                 id,
                 title, brand, 
                 size, description, 
-                price, addedImages, colors, 
-            }, {withCredentials: true});
-            window.location.reload(true);
-            setRedirect(true);
+                price, addedImages, colors}, {withCredentials: true});
+                navigate('/listings')
+                // window.location.reload(true);
             
         } else {
             //add new listing
             await axios.post('/addNewListing',{
                 title, brand, 
                 size, description, 
-                price, addedImages, colors, 
-            }, {withCredentials: true});
-            window.location.reload(true);
-            setRedirect(true);
-
+                price, addedImages, colors}, {withCredentials: true});
+                (navigate('/listings'))
+                window.location.reload(true);
         }
     }
-    if (redirect) {
-        return <Navigate to={'/account/listings'} />
-    }
-
+    
     return(
-        <div className=" px-10 w-1/2">
+        <div className="mt-10 w-full">
+            <div className = "w-full flex-col justify-center items-center">
             <form onSubmit={saveNewListing}>
-                <NewListForm
-                title={title} setTitle={setTitle}
-                brand={brand} setBrand={setBrand}
-                size={size} setSize={setSize}
-                description={description} setDescription={setDescription}
-                price={price} setPrice={setPrice}
-                addedImages={addedImages} setImages={setImages}
-                uploadImage={uploadImage}
-                />
-                <ColorsForm selected={colors} onChange={selectedColors}/>
+                <div className=" w-1/2 ml-24">
+                    <NewListForm
+                    title={title} setTitle={setTitle}
+                    brand={brand} setBrand={setBrand}
+                    size={size} setSize={setSize}
+                    description={description} setDescription={setDescription}
+                    price={price} setPrice={setPrice}
+                    addedImages={addedImages} setImages={setImages}
+                    uploadImage={uploadImage}/>
+                    <ColorsForm selected={colors} onChange={selectedColors} />
+                </div>
             </form>
+            <image src={"https://i.gifer.com/33U8.gif"} />
+            </div> 
         </div>
     )
-}
+};
 
-export default NewListing;
+export default NewListingPage;
