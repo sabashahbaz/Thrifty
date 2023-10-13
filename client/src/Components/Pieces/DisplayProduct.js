@@ -2,19 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 import AddToWishlist from "../Pieces/AddToWishlist";
-
+import AddToCart from "./AddToCart";
 // selected product will be displayed 
 
-function DisplayProduct ({ }) {
+function DisplayProduct ({deleteFromWishlist, setProductsInCart }) {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
     const {id} = useParams();
 
     useEffect(() => {
-        if (!id) {
-            return;
-        }
+        if (!id) {return;}
         axios.get(`/searchProductsByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
@@ -28,6 +26,9 @@ function DisplayProduct ({ }) {
     function handleSelectedImage(image) {
         setSelectedImage(image);
     }
+
+    
+
     return (
         <div className="mt-2  ml-5 -mx-8 px-8 py-4 ">
             <div>
@@ -42,9 +43,7 @@ function DisplayProduct ({ }) {
                         {/* <img onClick={()=> handleSelectedImage(image)} src={product.coverImage} className="py-1 h-[120px] w-[120px]"/> */}
                     </div>
                     <img src={ selectedImage||product.coverImage} className="m-0 h-[600px] w-[600px] object-cover aspect square"/>
-
                     </div>
-                
                     <div className="flex flex-col ml-3">
                         <h1 className="text-3xl ml-2">{product.title}</h1>
                         <div className = "mt-4 ml-5">
@@ -54,7 +53,7 @@ function DisplayProduct ({ }) {
                                 {product.brand}</a>
                             <h2 className="text-2xl mt-7">${product.price.val}0</h2>
                             <h2 className="mt-5 text-2xl"> Size: {product.size}</h2>
-                            <AddToWishlist productId={id} title={product.title} price={product.price.val} size={product.size} coverImage={product.coverImage}/>
+                            <AddToWishlist productId={id} title={product.title} price={product.price.val} size={product.size} coverImage={product.coverImage} deleteFromWishlist={deleteFromWishlist}/>
                             <div className= " mt-4 flex inline gap-10">
                                 <div>
                                     <h2 className = "font-semibold ">Category</h2>
@@ -70,16 +69,10 @@ function DisplayProduct ({ }) {
                             <h2 className= "font-semibold text-xl mt-4">Description</h2>
                             <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>
-                        <div className= "text-xl mt-4">
-                            <button className= "bg-blue-200 rounded-xl p-1 w-40 ml-4">Add to cart</button>
-                        </div>
-                        
-
+                        < AddToCart title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}  />
                     </div>
                 </div>
-            </div>
-
-                    
+            </div> 
                 : <div className="flex justify-center items-center h-screen">
                     <img src ="https://www.onwebchat.com/img/spinner.gif" className="w-32 h-32 mb-8" />
                 </div>

@@ -16,13 +16,6 @@ function MyListing(){
         })
     }, [])
 
-    //delete item from listing 
-    function deleteFromListing(itemId) {
-        console.log("item id",itemId)
-        axios.delete(`/deleteListing/${itemId}`, {withCredentials:true})
-        .then((response) => {console.log("product is deleted")},
-        window.location.reload()
-        )}
     
     return(
         <div className="mt-5">
@@ -53,7 +46,7 @@ function MyListing(){
                         <Link to={'/listings/'+ listing._id}>
                             <button className= " bg-blue-100 rounded-lg p-1 w-40 mt-2 hover:bg-blue-400">edit listing</button>
                         </Link>
-                        <button className = "bg-red-100 rounded-lg p-1 w-30 mt-2 ml-20 hover:bg-red-400" onClick={()=> deleteFromListing(listing._id)}>
+                        <button className = "bg-red-100 rounded-lg p-1 w-30 mt-2 ml-20 hover:bg-red-400">
                             delete
                         </button>
                     </div>

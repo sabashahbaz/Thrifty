@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
 const MyListing = require('./models/MyListing.js')
 const Wishlist = require('./models/Wishlist.js')
+const ShoppingCart = require('./models/ShoppingCart.js')
 const cookieParser = require('cookie-parser');
 const multer = require('multer')
 const fs = require('fs')
@@ -138,7 +139,7 @@ app.get('/listings/:id', async (req,res) => {
     res.json(await MyListing.findById(id))
 })
 
-
+//update my listing 
 app.put('/updateNewListing/', async (req, res) => {
     const { token } = req.cookies;
     const { id, title, brand, images, description, price, colors, size } = req.body;
@@ -281,6 +282,7 @@ app.get('/searchProductsByID/:id', async (req, res) => {
     }
 })
 
+//add products to wishlist
 app.post('/addToWishlist', async (req, res) => {
     const { token } = req.cookies;
     const { productId, title, price, size, image } = req.body;
@@ -297,7 +299,7 @@ app.post('/addToWishlist', async (req, res) => {
     })
 });
 
-
+//get all the products added to user's list 
 app.get('/wishlistProducts', async (req,res) => {
     const { token } = req.cookies;
     jwt.verify(token, jwtSecret, async (err, userData) => {
@@ -385,6 +387,36 @@ app.get('/searchWishlistByID/:id', async (req, res) => {
     }
 })
 
+//add products to the shopping cart
+app.post('/addToCart', (req, res) => {
+    const {token} = req.cookies;
+    const{title, price, image, size} = req.body
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) throw err;
+    const addToCart = await ShoppingCart.create({
+        owner: userData.id,
+        title, price, image, size
+    })
+    res.json(addToCart)
+    })
+})
+
+//get products user added to their cart 
+app.get('/getProductsFromCart', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) throw err
+        try {
+            const userProducts = await ShoppingCart.find({owner:userData.id})
+            res.json(userProducts)
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ error: 'Server error' });
+        }
+    })
+})
+
+//logout user => clear web token 
 app.delete('/logout', (req,res) => {
     // res.cookie('token', ' ').json(true);
     res.clearCookie('token')
@@ -394,6 +426,7 @@ app.delete('/logout', (req,res) => {
 app.get('/test', (req, res) => {
     res.json('Hello World!');
 }); 
+
 
 app.listen(4000, () => {
     console.log('back-end listening on port 4000!');

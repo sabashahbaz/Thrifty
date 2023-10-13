@@ -3,7 +3,7 @@ import axios from "axios";
 import {Link} from 'react-router-dom';
 // import {UserContext }from "../Pieces/UserContext";
 
-function WishListPage() {
+function WishListPage({deleteFromWishlist}) {
 
     const [wishlistProducts, setWishlistProducts] = useState([])
     // const {user} = useContext(UserContext);
