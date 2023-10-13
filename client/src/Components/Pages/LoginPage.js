@@ -30,7 +30,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
                 <h1 className="text-4xl text-center mt-6">Login</h1>
                 <form className="max-w-md mx-auto" onSubmit={handleLogin}>
                     <div className = "pt-5">
-                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer" 
+                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer focus:outline-none" 
                             type="email" 
                             placeholder="your@email.com" 
                             value={email}
@@ -39,7 +39,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
                     </div>
                     <div className = "pt-5">
-                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer " 
+                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer focus:outline-none " 
                             type="password" 
                             placeholder = "password"
                             value={password}
@@ -48,11 +48,11 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
                     </div>
                     <div className = "pt-5">
-                    <button className="bg-zinc-200 p-2 w-full rounded-2xl text-black shadow hover:shadow-xl cursor-pointer border-2 border-amber-950"> Login</button>
+                    <button className="bg-amber-900/25 p-2 w-full rounded-2xl text-black font-bold text-lg shadow hover:shadow-xl cursor-pointer border-2 border-amber-950"> Login</button>
                     </div>
                     
                     <div className="text-center font-bold py-2 text-amber-950 mt-2 ">
-                        Don't have an account yet? <Link className="underline text cursor-pointer shadow hover:shadow-xl" to={'/register'}> Register now</Link>
+                        Don't have an account yet? <Link className="underline text cursor-pointer shadow hover:text-amber-800" to={'/register'}> Register now</Link>
                         </div>
                 </form>
             </div>
