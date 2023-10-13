@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from 'react-router-dom';
+import {CartContext} from './CartContext';
 import axios from "axios";
-import AddToWishlist from "../Pieces/AddToWishlist";
+import AddToWishlist from "./AddToWishlist";
 import AddToCart from "./AddToCart";
+import RemoveFromWishlist from "./RemoveFromWishlist";
 
 // selected product will be displayed 
 
@@ -11,18 +13,23 @@ function DisplayWishListPage ({addToCart, addedToCart }) {
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
     const {id} = useParams();
+    console.log("id",id)
 
     useEffect(() => {
+        console.log("hiiiii")
         if (!id) {return;}
+        console.log("byeeee")
         axios.get(`/searchWishlistByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
-            console.log("did it work",response.data)
+            console.log("use effect from displayws product",response.data)
         })
         .catch((error) => {
             console.error('Error fetching product details:', error);
         });
-    }, [id]);
+    }, []);
+
+    // console.log("blah", product.id)
 
     function handleSelectedImage(image) {
         setSelectedImage(image);
@@ -66,6 +73,7 @@ function DisplayWishListPage ({addToCart, addedToCart }) {
                                     ))}
                                 </div>
                             </div>
+                            <RemoveFromWishlist product={product}/>
                             <h2 className= "font-semibold text-xl mt-4">Description</h2>
                             <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>

@@ -1,4 +1,5 @@
-import {BrowserRouter, Routes, Route, Outlet, Navigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
+import CartProvider from './Components/Pieces/CartContext'
 import React, {useState } from "react";
 import axios from 'axios'
 import Layout from './Layout'
@@ -12,7 +13,7 @@ import NewListingPage from './Components/Pages/NewListingPage';
 import Profile from './Components/Pages/Profile'
 import ProductsPage from './Components/Pages/ProductsPage';
 import DisplayProduct from './Components/Pieces/DisplayProduct';
-import DisplayWishListPage from './Components/Pieces/DisplayWishListPage';
+import DisplayWishListPage from './Components/Pieces/DisplayWishListProduct';
 import Cancel from './Components/Pages/Cancel'
 import Success from './Components/Pages/Success'
 // import IndexPage from './Components/Routes/IndexPage'
@@ -20,12 +21,13 @@ import Success from './Components/Pages/Success'
 axios.defaults.baseURL = 'http://localhost:4000'
 
 function App() {
-    const [currentUser, setCurrentUser] = useState(null)
+    // const [currentUser, setCurrentUser] = useState(null)
     const [searchedProducts, setSearchedProducts] = useState([])
 
     return (
         <BrowserRouter>
-        <UserContextProvider currentUser={currentUser} setCurrentUser={setCurrentUser}>
+        <UserContextProvider>
+            <CartProvider>
             <Navbar setSearchedProducts={setSearchedProducts} />
                 <Routes >
                     {/* <Route path="/" element={<Layout />} > */}
@@ -43,6 +45,7 @@ function App() {
                         <Route path="success" element={<Success/>} />
                         <Route path="cancel" element={<Cancel/>} />
                 </Routes>
+            </CartProvider>
         </UserContextProvider>
         </BrowserRouter>
     )

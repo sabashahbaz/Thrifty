@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const UserContext = createContext({});
 
-function UserContextProvider({children, currentUser, setCurrentUser}) {
+function UserContextProvider({children}) {
     
     const [user, setUser] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
@@ -24,12 +24,6 @@ function UserContextProvider({children, currentUser, setCurrentUser}) {
                 console.error('Error fetching user profile:', error);
             });
     }, []);
-    
-        // console.log("user",user);
-
-            
-            
-    
 
     return (
         <UserContext.Provider value={{user, setUser, loggedIn}} >

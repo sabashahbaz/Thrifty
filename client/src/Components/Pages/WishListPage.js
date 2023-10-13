@@ -1,34 +1,35 @@
 import React, {useState,useEffect, useContext} from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import {CartContext} from '../Pieces/CartContext'
+import DisplayProduct from '../Pieces/DisplayProduct'
 // import {UserContext }from "../Pieces/UserContext";
 
-function WishListPage({deleteFromWishlist}) {
+function WishListPage() {
 
-    const [wishlistProducts, setWishlistProducts] = useState([])
-    // const {user} = useContext(UserContext);
-
+    const {wishlist, setWishlist, deleteFromWishlist} = useContext(CartContext);
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         axios.get('/wishlistProducts',{ withCredentials: true })
         .then(response => {
             console.log("the response",response.data)
-            setWishlistProducts(response.data)
+            setWishlist(response.data)
         })
     }, [])
 
-    function deleteFromWishlist(itemId) {
-        console.log("item id",itemId)
-        axios.delete(`/deleteFromWishlist/${itemId}`, {withCredentials:true})
-        .then((response) => {console.log("product is deleted")},
+    function toggleRefresh() {
         window.location.reload()
-        )}
+    }
+
+    // console.log("blah", product.id)
+
         
     return (
         <div className= "flex flex-col items-center justify-center mt-10 ">
             <h1 className = "text-2xl font-bold">My Wishlist</h1>
             <div className="mt-6 grid grid-cols-1sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-3 ">
-                {wishlistProducts.map((wishlistItem) => (
+                {wishlist.map((wishlistItem) => (
                     <div key={wishlistItem.product.productId} className=" p-6 rounded-2xl cursor-pointer shadow-md shadow-gray-200">
                         <Link to={`/wishlist/${wishlistItem.product.productId}`} >
                         <div className="bg-gray-300 rounded-2xl">
@@ -44,10 +45,12 @@ function WishListPage({deleteFromWishlist}) {
                         <h3 className="text-md text-red-800">{wishlistItem.product.size}</h3>
                         <h3 className="font-bold text-md">${wishlistItem.product.price}</h3>
                     </div>
-                    <div className=" flex items-center justify-center mt-1">
-                        <button className = " bg-white text-sm rounded-lg p-1 w-30 mt-2 ml-auto hover:bg-red-100" onClick={()=> deleteFromWishlist(wishlistItem.product.productId)}>
+                    <div className=" flex items-center justify-center mt-1" 
+                        onClick={() => {deleteFromWishlist(wishlistItem.product.productId);
+                        toggleRefresh();}}>
+                        <button className = " bg-white text-sm rounded-lg p-1 w-30 mt-2 ml-auto hover:bg-red-100">
                         Remove from Wishlist
-                        </button>
+                        </button> 
                     </div>
                     </div>
                 ))}

@@ -1,29 +1,81 @@
 import axios from 'axios'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import {CartContext} from './CartContext';
 
 
 function ShoppingCartModal ({onClose}) {
 
     const [productsInCart, setProductsInCart] = useState([])
+    const {shoppingCart, setShoppingCart, deleteResponse } = useContext(CartContext);
 
     useEffect(() => {
         axios.get('/getProductsFromCart',{ withCredentials: true })
         .then(response => {
             console.log("the response",response.data)
-            setProductsInCart(response.data)
+            setShoppingCart(response.data)
         })
     }, [])
-
-    console.log("I am so smart",productsInCart)
 
    //add total cost of products
     function addTotalCost() {
         let totalCost = 0;
-        productsInCart.forEach((product) => (
+        shoppingCart.forEach((product) => (
             totalCost += product.price 
         ));
         return totalCost.toFixed(2); 
     }
+
+    // function refreshPage() {
+    //     if (deleteResponse) {
+    //         console.log("hehhehehehe")
+    //         axios.get('/getProductsFromCart', { withCredentials: true })
+    //             .then((response) => {
+    //                 console.log("from refreshpage", response.data);
+    //                 setShoppingCart(response.data);
+    //             });
+    //     }
+    // }
+
+
+    // function deleteProductFromCart(itemId) {
+    //     let deleteResponse;
+    //     console.log("item id from delete cart",itemId)
+    //     axios.delete(`/deleteProductFromCart/${itemId}`, {withCredentials:true})
+    //     .then((response) => {
+    //         deleteResponse= response
+    //         console.log(deleteResponse)})
+    //         if (deleteResponse) {
+    //             console.log("hehhehehehe")
+    //             axios.get('/getProductsFromCart', { withCredentials: true })
+    //                 .then((response) => {
+    //                 console.log("from refreshpage", response.data);
+    //                 setShoppingCart(response.data);
+    //                 });
+    //         }
+    //     }
+
+
+    async function deleteProductFromCart(itemId) {
+        try {
+            console.log("item id from delete cart", itemId);
+            const response = await axios.delete(`/deleteProductFromCart/${itemId}`, { withCredentials: true });
+            console.log("Delete response:", response);
+    
+            if (response.status === 200) {
+                // The item was successfully deleted, so refresh the shopping cart
+                const refreshResponse = await axios.get('/getProductsFromCart', { withCredentials: true });
+                console.log("Refresh response:", refreshResponse);
+    
+                if (refreshResponse.status === 200) {
+                    // Update the shopping cart
+                    setShoppingCart(refreshResponse.data);
+                }
+            }
+        } catch (error) {
+            console.error("Error deleting item from cart:", error);
+        }
+    }
+   
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
@@ -42,7 +94,7 @@ function ShoppingCartModal ({onClose}) {
                     
                 </div>
             <div className="max-h-[400px] overflow-y-auto">
-                {productsInCart.map((product)=> (
+                {shoppingCart.map((product)=> (
                     <div>
                         <hr class="h-px my-1 bg-gray-200 border-1 light:bg-gray-200"></hr>
                     <div key={product._id} className="flex gap-3 py-1 px-3">
@@ -58,18 +110,24 @@ function ShoppingCartModal ({onClose}) {
                                 </div>
                                 <div className = "mr-3">${product.price}.00</div>
                             </div>
+                            <div onClick={()=>{deleteProductFromCart(product._id)}}>
+                            {/* <div onClick={()=>deleteProductFromCart(product._id)}> */}
+                                <button className = "bg-red-100 px-1 text-sm text-gray-500 rounded-lg ">
+                                    delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                     </div>
                 ))}
                 </div>
-                
-                <div className = "flex in-line justify-between mr-3 mt-3 ">
+                <div className = "flex in-line justify-between mr-3 mt-3">
                     <button className = "bg-emerald-200 p-1 px-5 mb-2 ml-2 rounded-xl shadow hover:shadow-xl hover:bg-emerald-400">
                         Place Order
                     </button>
                     <p className = "mt-1 ml-3 font-bold text-xl">Total Price: ${addTotalCost()}</p>
                 </div>
+                
             </div>
         </div>
     </div>

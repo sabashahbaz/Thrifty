@@ -12,7 +12,7 @@ function ProductsPage({searchedProducts}){
         <div className = " py-4 px-8 mt-8 grid gap-x-12 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {searchedProducts.map(product => (
                 <Link to={'/product/' + product.id} >
-                <div key={product.id} className="shadow hover:shadow-2xl">
+                <div key={product.id} className="shadow hover:shadow-2xl p-3">
                     <div className="bg-gray-300 mb-2 rounded-2xl flex bg-gray-300">
                         <img className = "rounded-2xl object-cover aspect-square" src={product.coverImage} alt={product.title} />
                     </div>

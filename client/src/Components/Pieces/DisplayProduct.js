@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
-import AddToWishlist from "../Pieces/AddToWishlist";
+import AddToWishlist from "./AddToWishlist.js";
 import AddToCart from "./AddToCart";
 // selected product will be displayed 
 
-function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
+function DisplayProduct () {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
@@ -26,8 +26,6 @@ function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
     function handleSelectedImage(image) {
         setSelectedImage(image);
     }
-
-    
 
     return (
         <div className="mt-2  ml-5 -mx-8 px-8 py-4 ">
@@ -53,7 +51,7 @@ function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
                                 {product.brand}</a>
                             <h2 className="text-2xl mt-7">${product.price.val}0</h2>
                             <h2 className="mt-5 text-2xl"> Size: {product.size}</h2>
-                            <AddToWishlist productId={id} title={product.title} price={product.price.val} size={product.size} coverImage={product.coverImage} deleteFromWishlist={deleteFromWishlist}/>
+                            <AddToWishlist productId={id} title={product.title} image = { product.coverImage} price={product.price.val} size={product.size}/>
                             <div className= " mt-4 flex inline gap-10">
                                 <div>
                                     <h2 className = "font-semibold ">Category</h2>
@@ -69,7 +67,7 @@ function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
                             <h2 className= "font-semibold text-xl mt-4">Description</h2>
                             <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>
-                        < AddToCart addedToCart={addedToCart} addToCart={ addToCart} title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}  />
+                        < AddToCart id={product.id} title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}  />
                     </div>
                 </div>
             </div> 
@@ -77,7 +75,6 @@ function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
                     <img src ="https://www.onwebchat.com/img/spinner.gif" className="w-32 h-32 mb-8" />
                 </div>
                 }
-                
             </div>
         </div>
     )
