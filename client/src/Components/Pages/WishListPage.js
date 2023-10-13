@@ -26,11 +26,11 @@ function WishListPage() {
 
         
     return (
-        <div className= "flex flex-col items-center justify-center mt-10 ">
+        <div className= "flex flex-col items-center justify-center mt-10  ">
             <h1 className = "text-2xl font-bold">My Wishlist</h1>
             <div className="mt-6 grid grid-cols-1sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-3 ">
                 {wishlist.map((wishlistItem) => (
-                    <div key={wishlistItem.product.productId} className=" p-6 rounded-2xl cursor-pointer shadow-md shadow-gray-200">
+                    <div key={wishlistItem.product.productId} className=" p-6 rounded-2xl cursor-pointer shadow-md shadow-gray-300">
                         <Link to={`/wishlist/${wishlistItem.product.productId}`} >
                         <div className="bg-gray-300 rounded-2xl">
                             <img

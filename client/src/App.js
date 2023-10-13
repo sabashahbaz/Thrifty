@@ -16,6 +16,7 @@ import DisplayProduct from './Components/Pieces/DisplayProduct';
 import DisplayWishListPage from './Components/Pieces/DisplayWishListProduct';
 import Cancel from './Components/Pages/Cancel'
 import Success from './Components/Pages/Success'
+import Welcome from './Components/Pages/Welcome'
 // import IndexPage from './Components/Routes/IndexPage'
 
 axios.defaults.baseURL = 'http://localhost:4000'
@@ -44,6 +45,7 @@ function App() {
                         {/* <Route path="/shoppingCart"/> */}
                         <Route path="success" element={<Success/>} />
                         <Route path="cancel" element={<Cancel/>} />
+                        <Route path="/" element={<Welcome/>}/>
                 </Routes>
             </CartProvider>
         </UserContextProvider>

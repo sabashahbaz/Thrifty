@@ -3,6 +3,8 @@ import React from 'react';
 
 export default function Welcome () {
     return (
-        <p>welcomepage</p>
+        <div className=" h-screen flex items-center justify-around bg-gradient-to-t from-sky-300 to-white" >
+        
+    </div>
     )
 }

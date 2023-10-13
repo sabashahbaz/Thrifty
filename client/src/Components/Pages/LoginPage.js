@@ -24,7 +24,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
 
     return (
-        <div className=" h-screen flex items-center justify-around bg-gradient-to-t from-sky-300 to-blue-500" >
+        <div className=" h-screen flex items-center justify-around bg-gradient-to-t from-sky-300 to-white" >
             <div className = "container mb-20 bg shadow-xl w-25 bg-sky-300 w-1/2 rounded-2xl border-2 border-blue-500">
                 <h1 className="text-4xl text-center mt-6">Login</h1>
                 <form className="max-w-md mx-auto" onSubmit={handleLogin}>
