@@ -318,6 +318,7 @@ app.get('/wishlistProducts', async (req,res) => {
     })
 })
 
+//delete item from wishlist based on product id
 app.delete('/deleteFromWishlist/:itemId', async (req,res) => {
     const {token} = req.cookies;
     const {itemId} = req.params;
@@ -413,6 +414,27 @@ app.get('/getProductsFromCart', (req,res) => {
             console.error(error)
             res.status(500).json({ error: 'Server error' });
         }
+    })
+})
+
+//delete product from cart based on product id
+app.delete('/deleteProductFromCart/:id', (req,res) => {
+    const {token} = req.cookies;
+    const {id} = req.params;
+    console.log("MANO", req.params)
+    jwt.verify(token, jwtSecret, async (err, userData) => {
+        if (err) {
+            return res.status(401).json({error: "unauthorized"});
+        }
+        const deletedProduct = await ShoppingCart.findOneAndRemove({
+            owner: userData.id,
+            _id: id
+        })
+        console.log("deletedProduct",deletedProduct)
+        if (!deletedProduct) {
+            return res.status(404).json({ error: 'Item not found in shopping cart' });
+        }
+        res.json({message: "item deleted from wishlist"})
     })
 })
 

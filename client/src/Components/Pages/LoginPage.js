@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from "../Pieces/UserContext.js";
+import bg from "../../Assets/bg-clothing.png"
 
 export default function LoginPage({ attemptLogin, setCurrentUser}) {
     const [email, setEmail] = useState("")
@@ -24,8 +25,8 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
 
     return (
-        <div className=" h-screen flex items-center justify-around bg-gradient-to-t from-sky-300 to-white" >
-            <div className = "container mb-20 bg shadow-xl w-25 bg-sky-300 w-1/2 rounded-2xl border-2 border-blue-500">
+        <div className=" h-screen flex items-center justify-around bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${bg})` }} >
+            <div className = "container mb-20 bg shadow-xl w-25 bg-loginbackground/90 w-1/2 rounded-2xl border-2 border-orange-950/50">
                 <h1 className="text-4xl text-center mt-6">Login</h1>
                 <form className="max-w-md mx-auto" onSubmit={handleLogin}>
                     <div className = "pt-5">
@@ -38,7 +39,7 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
                     </div>
                     <div className = "pt-5">
-                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer" 
+                    <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer " 
                             type="password" 
                             placeholder = "password"
                             value={password}
@@ -47,10 +48,10 @@ export default function LoginPage({ attemptLogin, setCurrentUser}) {
 
                     </div>
                     <div className = "pt-5">
-                    <button className="bg-zinc-200 p-2 w-full rounded-2xl text-black shadow hover:shadow-xl cursor-pointer border-2 border-blue-400"> Login</button>
+                    <button className="bg-zinc-200 p-2 w-full rounded-2xl text-black shadow hover:shadow-xl cursor-pointer border-2 border-amber-950"> Login</button>
                     </div>
                     
-                    <div className="text-center py-2 text-gray-500 mt-2 ">
+                    <div className="text-center font-bold py-2 text-amber-950 mt-2 ">
                         Don't have an account yet? <Link className="underline text cursor-pointer shadow hover:shadow-xl" to={'/register'}> Register now</Link>
                         </div>
                 </form>

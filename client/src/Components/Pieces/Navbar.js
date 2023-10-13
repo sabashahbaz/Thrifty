@@ -31,8 +31,8 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
 
     return ( 
         <Fragment>
-            <nav>
-        <header className=" p-1 flex justify-between items-center "> {/* Added 'items-center' class */}
+            <nav >
+        <header className=" flex justify-between items-center h-20 bg-navbar   "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
             <ProductSearchBar setSearchedProducts={setSearchedProducts} />
             {user ? (

@@ -23,7 +23,7 @@ function ProductSearchBar({setSearchedProducts}) {
     };
 
     return(
-        <form className="flex border border-gray-300 rounded-full py-1 px-3 w-1/2 h-8 shadow-md shadow-gray-300 mr-5" onSubmit={searchProducts}>
+        <form className="flex border border-gray-300 rounded-full py-1 px-3 w-1/2 h-8 shadow-md shadow-amber-900/50 mr-5 bg-white" onSubmit={searchProducts}>
         <input
             className = "search-bar focus:outline-none flex-grow "
             type="text"
