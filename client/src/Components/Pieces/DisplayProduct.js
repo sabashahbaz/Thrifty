@@ -5,7 +5,7 @@ import AddToWishlist from "../Pieces/AddToWishlist";
 import AddToCart from "./AddToCart";
 // selected product will be displayed 
 
-function DisplayProduct ({deleteFromWishlist, setProductsInCart }) {
+function DisplayProduct ({deleteFromWishlist, addToCart, addedToCart }) {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
@@ -69,7 +69,7 @@ function DisplayProduct ({deleteFromWishlist, setProductsInCart }) {
                             <h2 className= "font-semibold text-xl mt-4">Description</h2>
                             <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>
-                        < AddToCart title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}  />
+                        < AddToCart addedToCart={addedToCart} addToCart={ addToCart} title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}  />
                     </div>
                 </div>
             </div> 

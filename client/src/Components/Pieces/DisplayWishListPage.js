@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 import AddToWishlist from "../Pieces/AddToWishlist";
+import AddToCart from "./AddToCart";
 
 // selected product will be displayed 
 
-function DisplayWishListPage ({ }) {
+function DisplayWishListPage ({addToCart, addedToCart }) {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
 
     const {id} = useParams();
 
     useEffect(() => {
-        if (!id) {
-            return;
-        }
-        console.log("what is happening")
+        if (!id) {return;}
         axios.get(`/searchWishlistByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
@@ -71,9 +69,10 @@ function DisplayWishListPage ({ }) {
                             <h2 className= "font-semibold text-xl mt-4">Description</h2>
                             <p className="text-md leading-1 mt-2">{product.description}</p>
                         </div>
-                        <div className= "text-xl mt-4">
-                            <button className= "bg-blue-200 rounded-xl p-1 w-40 ml-4">Add to cart</button>
-                        </div>
+                        {/* <div className= "text-xl mt-4" onClick={()=>addToCart({title, image, price, size, image})}>
+                            <button className= "bg-blue-200 rounded-xl p-1 w-40 ml-4" >Add to cart</button>
+                        </div> */}
+                        <AddToCart addedToCart={addedToCart} addToCart={ addToCart} title={product.title} image={product.coverImage} price= {product.price.val} size={product.size}/>
                     </div>
                 </div>
             </div>

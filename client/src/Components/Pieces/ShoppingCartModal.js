@@ -50,7 +50,10 @@ function ShoppingCartModal ({onClose}) {
                         <div>
                             <div>{product.title}</div>
                             <div className="flex justify-between">
-                                <div>{product.size}</div>
+                                <div className="flex gap-1">
+                                    <div>Size:</div>
+                                    <div className='text-md text-red-800'> {product.size}</div>
+                                </div>
                                 <div className = "mr-3">${product.price}.00</div>
                             </div>
                         </div>

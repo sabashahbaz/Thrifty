@@ -22,16 +22,6 @@ axios.defaults.baseURL = 'http://localhost:4000'
 function App() {
     const [currentUser, setCurrentUser] = useState(null)
     const [searchedProducts, setSearchedProducts] = useState([])
-    
-    
-
-    // function deleteFromWishlist(itemId) {
-    //     console.log("from delete withlsit function ",itemId)
-    //     axios.delete(`/deleteFromWishlist/${itemId}`, {withCredentials:true})
-    //     .then((response) => {console.log("product is deleted")},
-    //     window.location.reload()
-    //     )}
-
 
     return (
         <BrowserRouter>
@@ -44,12 +34,12 @@ function App() {
                         <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}/>
                         <Route path="profile" element={<Profile />} />
                         <Route path="wishlist" element={<WishListPage />}/>
-                        <Route path="/wishlist/:id" element={<DisplayWishListPage  />}/>
+                        <Route path="/wishlist/:id" element={<DisplayWishListPage />}/>
                         <Route path="listings" element={<MyListing />} />
                         <Route path="listings/new" element={<NewListingPage />}/>
                         <Route path="listings/:id" element={<NewListingPage  />}/>
-                        <Route path="/product/:id" element={<DisplayProduct/>}/> 
-                        <Route path="/shoppingCart"/>
+                        <Route path="/product/:id" element={<DisplayProduct  />}/> 
+                        {/* <Route path="/shoppingCart"/> */}
                         <Route path="success" element={<Success/>} />
                         <Route path="cancel" element={<Cancel/>} />
                 </Routes>
