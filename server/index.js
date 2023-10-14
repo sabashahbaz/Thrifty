@@ -72,18 +72,6 @@ app.post('/login', async (req,res) => {
     }
 });
 
-app.get('/profile', (req, res) => {
-    const {token} = req.cookies;
-    if (token) {
-        jwt.verify(token, jwtSecret, async (err, userData) => { 
-            if (err) throw err;
-            const {firstName, email, _id} = await User.findById(userData.id)
-            res.json({firstName, email, _id});
-        });
-    } else {
-        res.json(null);
-    }
-})
 
 console.log({__dirname})
 const newName = Date.now() + '.jpg';
@@ -215,15 +203,8 @@ app.get('/searchProducts/:query', async (req, res) => {
         const filteredData = apiData.data.map(product => ({
             id: product.id,
             title: product.title,
-            // department: product.department.display,
-            // category: {
-            //     category: product.category_v2.display, 
-            //     category_features: product.category_features.display},
-            // colors: product.colors,
             price: product.price_amount,
             size: product.size_obj.display_with_size_system,
-            // description: product.description,
-            // images: product.pictures.map(picture => picture.url),
             coverImage: product.picture_url
         }));
 

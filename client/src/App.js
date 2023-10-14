@@ -32,7 +32,7 @@ function App() {
             <Navbar setSearchedProducts={setSearchedProducts} />
                 <Routes >
                     {/* <Route path="/" element={<Layout />} > */}
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/login" element={<LoginPage setSearchedProducts={setSearchedProducts}/>} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}/>
                         <Route path="profile" element={<Profile />} />
