@@ -30,9 +30,6 @@ function NewListingPage ({setListings}) {
             selectedColors(data.colors);
             setSize(data.size);
             setPrice(data.price)
-            // console.log("addedImages", addedImages, setImages)
-            // console.log("booo",response.data)
-            // console.log("booo",response.data.images)
         });
     }, [id]);
 
@@ -89,9 +86,9 @@ function NewListingPage ({setListings}) {
     
     return(
         <div className="mt-10 w-full">
-            <div className = "w-full flex-col justify-center items-center">
+            <div className = "w-full flex-col justify-center items-center ">
             <form onSubmit={saveNewListing}>
-                <div className=" w-1/2 ml-24">
+                <div className=" w-1/2 ml-24 bg-navbar/25 border-3 p-4 rounded-xl">
                     <NewListForm
                     title={title} setTitle={setTitle}
                     brand={brand} setBrand={setBrand}

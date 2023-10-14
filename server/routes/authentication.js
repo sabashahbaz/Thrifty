@@ -1,7 +1,7 @@
+const express = require('express');
+const router = express.Router();
 
-
-
-app.post('/register', async (req,res) => {
+router.post('/register', async (req,res) => {
     console.log(req.body);
     const {firstName, lastName, email, password} = req.body;
 
@@ -18,7 +18,7 @@ app.post('/register', async (req,res) => {
     }
 });
 
-app.post('/login', async (req,res) => {
+router.post('/login', async (req,res) => {
     const {email, password} = req.body;
     // console.log("helloooo",req.body);
     const user = await User.findOne({email});
@@ -44,3 +44,6 @@ app.post('/login', async (req,res) => {
         res.json("user not found");
     }
 });
+
+
+module.exports = router;

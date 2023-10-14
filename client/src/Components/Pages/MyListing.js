@@ -26,7 +26,7 @@ function MyListing(){
     return(
         <div className="mt-5">
             <div className = "w-full flex items-center justify-center">
-            <Link className="inline-flex bg-blue-200 text-black py-2 px-6 rounded-full cursor-pointer hover:bg-blue-400" to='new'>
+            <Link className="inline-flex bg-navbar/50 text-black py-2 px-6 rounded-full cursor-pointer hover:bg-navbar/75" to='new'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
@@ -50,9 +50,9 @@ function MyListing(){
                     </div>
                     <div className=" flex items-center justify-center mt-1">
                         <Link to={'/listings/'+ listing._id}>
-                            <button className= " bg-blue-100 rounded-lg p-1 w-40 mt-2 hover:bg-blue-400">edit listing</button>
+                            <button className= " bg-navbar/50 rounded-lg p-1 w-40 mt-2 hover:bg-navbar/75">edit listing</button>
                         </Link>
-                        <button className = "bg-red-100 rounded-lg p-1 w-30 mt-2 ml-20 hover:bg-red-400" onClick={()=>deleteListing(listing._id)}>
+                        <button className = "bg-red-100 rounded-lg p-1 px-2 w-30 mt-2 ml-20 hover:bg-red-400" onClick={()=>deleteListing(listing._id)}>
                             delete
                         </button>
                     </div>

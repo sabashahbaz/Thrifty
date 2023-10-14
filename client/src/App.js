@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CartProvider from './Components/Pieces/CartContext'
 import React, {useState } from "react";
 import axios from 'axios'
@@ -24,6 +24,7 @@ axios.defaults.baseURL = 'http://localhost:4000'
 function App() {
     // const [currentUser, setCurrentUser] = useState(null)
     const [searchedProducts, setSearchedProducts] = useState([])
+
 
     return (
         <BrowserRouter>

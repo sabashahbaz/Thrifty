@@ -72,7 +72,7 @@ function ColorsForm ({onChange, selected}) {
                         </label>
                     </div>
                     <div className= "">
-                        <button className = "bg-blue-300 rounded-xl w-full mt-2 mb-10 h-10 cursor-pointer hover:bg-blue-100" > Add to Closet</button>
+                        <button className = "bg-navbar/50 rounded-xl w-full mt-2 mb-10 h-10 cursor-pointer hover:bg-navbar/75" > Add to Closet</button>
                     </div>     
                 </div>
             )

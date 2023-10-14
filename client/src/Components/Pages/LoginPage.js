@@ -12,7 +12,7 @@ export default function LoginPage({ setSearchedProducts}) {
 
     const handleChangeEmail = e => setEmail(e.target.value)
     const handleChangePassword = e => setPassword(e.target.value)
-    const [loading, setLoading] = useState(false);
+    
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -21,13 +21,11 @@ export default function LoginPage({ setSearchedProducts}) {
         // Check if the login was successful (you may need to adapt this based on your API response)
         if (response.status === 200) {
             setUser(response.data);
-            setLoading(true);
             console.log(response.data);
             // If login is successful, search for featured products
             axios.get(`/searchProducts/${'featured-products'}`)
             .then((response) => {
                 setSearchedProducts(response.data.data);
-                setLoading(false)
                 navigate('/products');
             });
         } else {
@@ -41,18 +39,7 @@ export default function LoginPage({ setSearchedProducts}) {
     }
     
     return (
-        <div>
-            {
-                loading ? 
-                <div>
-                    <div className="flex justify-center items-center h-screen">
-                    <img src ="https://www.onwebchat.com/img/spinner.gif" className="w-32 h-32 mb-8" />
-                </div>
-                </div>
-        : 
-
-
-<div className=" h-screen flex items-center justify-around bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${bg})` }} >
+        <div className=" h-screen flex items-center justify-around bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${bg})` }} >
             <div className = "container mb-20 bg shadow-xl w-25 bg-loginbackground/90 w-1/2 rounded-2xl border-2 border-orange-950/50">
                 <h1 className="text-4xl text-center mt-6">Login</h1>
                 <form className="max-w-md mx-auto" onSubmit={handleLogin}>
@@ -84,9 +71,6 @@ export default function LoginPage({ setSearchedProducts}) {
                 </form>
             </div>
         </div>
-}
+)}
 
-        </div>
-            
-    )
-};
+    

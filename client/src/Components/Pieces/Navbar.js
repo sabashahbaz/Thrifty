@@ -30,14 +30,14 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
     }
 
     return ( 
-        <Fragment>
-            <nav >
-        <header className=" flex justify-between items-center h-20 bg-navbar   "> {/* Added 'items-center' class */}
+        // <Fragment>
+            <nav>
+            <header className=" flex justify-between items-center  h-20 bg-gradient-to-b from-navbar to-white   "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
             <ProductSearchBar setSearchedProducts={setSearchedProducts} />
             {user ? (
                     <div className="flex">
-                    <button className="mr-10 text-black  bg-navbar/50  font-medium rounded-lg text-lg hover:text-amber-950 text-center">
+                    <button className="mr-10 text-black  bg-inherit font-medium rounded-lg text-lg hover:text-amber-950 text-center">
                     <div className="px-2 py-1.5 mb-1 mt-2 " onClick={()=>setShowModal(true)}>
                         <div className="flex items-center gap-2 cursor-pointer  ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -49,7 +49,7 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                     </button>
                     {showModal ?  <ShoppingCartModal onClose={() => setShowModal(false)} /> : null}
                 
-                    <div className="relative mr-8 cursor-pointer " onClick={toggleMenu}>
+                    <div className="relative mr-8 cursor-pointer " onClick={()=> toggleMenu(!clicked)}>
                     <div className="flex items-center gap-2 border border-amber-950 rounded-full  mt-2 px-3 w-100 h-9 shadow-md  bg-stone-100 shadow-amber-950">
                         <div className="bg-primary text-black rounded-full border border-gray-100 overflow-hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -69,14 +69,16 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                             <Link to="/wishlist">
                             Wishlist</Link>
                         </div>
-                        <div className="p-2 hover:bg-sky-300">
-                            <a href="/listings">My Closet</a>
+                        <div className="p-2 hover:bg-navbar/25">
+                            <Link to="/listings">
+                            My Closet</Link>
+
                         </div>
-                        <div className="p-2 hover:bg-sky-300 p-1">
+                        <div className="p-2 hover:bg-navbar/25 p-1">
                             <p onClick={logout}>Log Out</p>
                         </div>
                         </div>
-                    ) : null}
+                ) : null}
                     </div>
                     </div>
                 
@@ -92,11 +94,8 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                 </Link>}
         </header>
     </nav>
-
-
-        </Fragment>
+// </Fragment>
         
-    )
-}
+)};
 
 export default Navbar;
