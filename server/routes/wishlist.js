@@ -11,6 +11,7 @@ const apiKey = process.env.POSHMARK_API_KEY
 //add products to wishlist
 router.post('/addToWishlist', async (req, res) => {
     const { token } = req.cookies;
+    console.log(token)
     const { productId, title, price, size, image } = req.body;
     console.log("req.body", req.body)
     jwt.verify(token, jwtSecret, async (err, userData) => {
