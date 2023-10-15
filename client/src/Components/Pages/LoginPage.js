@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from "../Pieces/UserContext.js";
 import bg from "../../Assets/bg-clothing.png"

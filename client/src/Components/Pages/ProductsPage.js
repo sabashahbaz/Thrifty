@@ -8,7 +8,6 @@ import DisplayProduct from '../Pieces/DisplayProduct'
 function ProductsPage({searchedProducts}){
 
     
-    console.log("searched products",searchedProducts)
     return (
         <div className = " py-4 px-8 mt-8 grid gap-x-12 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {searchedProducts.map(product => (

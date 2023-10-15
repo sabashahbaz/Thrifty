@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import bg from "../../Assets/bg-clothing.png"
 
@@ -10,6 +10,8 @@ function Register() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigate = useNavigate()
+
     async function registerUser (e) {
     e.preventDefault()
     try {
@@ -17,6 +19,7 @@ function Register() {
             firstName, lastName, email, password
         });
         alert("Registered successfull. Now you can log in.")
+        navigate('/login')
     } catch (e) {
         alert("Registration failed. Please try again.")
     }
