@@ -14,8 +14,8 @@ import Profile from './Components/Pages/Profile'
 import ProductsPage from './Components/Pages/ProductsPage';
 import DisplayProduct from './Components/Pieces/DisplayProduct';
 import DisplayWishListPage from './Components/Pieces/DisplayWishListProduct';
-import Cancel from './Components/Pages/Cancel'
-import Success from './Components/Pages/Success'
+import Cancel from './Components/Pages/CancelledOrder'
+import Success from './Components/Pages/SuccessfulOrder'
 import Welcome from './Components/Pages/Welcome'
 // import IndexPage from './Components/Routes/IndexPage'
 
