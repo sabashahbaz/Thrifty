@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import bg from "../../Assets/cancel.png"
 
 
-// user will be redirected to this page 
+// user will be redirected to this page after cancelling thier order 
 function Cancel () {
     return (
         <div className="">

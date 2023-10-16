@@ -1,5 +1,7 @@
 import React from 'react';
 
+//form to allow user to post new lising for sale 
+
 function NewListForm ({uploadImage, 
     title, setTitle,brand, 
     setBrand, size, setSize, 

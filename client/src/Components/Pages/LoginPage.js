@@ -4,13 +4,12 @@ import axios from 'axios'
 import { UserContext } from "../Pieces/UserContext.js";
 import bg from "../../Assets/bg-clothing.png"
 
+//user login page 
 export default function LoginPage({ setSearchedProducts}) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState(null);
     const navigate = useNavigate()
     const {setUser} = useContext(UserContext)
-
 
     const handleChangeEmail = e => setEmail(e.target.value)
     const handleChangePassword = e => setPassword(e.target.value)
@@ -25,12 +24,10 @@ export default function LoginPage({ setSearchedProducts}) {
             axios.get(`/searchProducts/${'featured-products'}`)
             .then((response) => {
                 setSearchedProducts(response.data.data);
-                navigate('/products');
+                navigate('/products'); // after logging in, user is directed to the products page, displayed the search results of the featured products 
             });
         } else {
-            // Show an alert or handle login failure here
-            setError("Incorrect username or password")
-            console.error('Login failed. Please try again.');
+            alert("Incorrect username or password. Please try again") // if user login is incorrect, alert user
         }
         } catch (error) {
         console.error('Error logging in:', error);
@@ -49,7 +46,6 @@ export default function LoginPage({ setSearchedProducts}) {
                             value={email}
                             onChange={handleChangeEmail}
                             />
-
                     </div>
                     <div className = "pt-5">
                     <input className= "w-full border my-1 py-2 px-3 rounded-2xl shadow hover:shadow-xl cursor-pointer focus:outline-none " 
@@ -62,7 +58,7 @@ export default function LoginPage({ setSearchedProducts}) {
                     <div className = "pt-5">
                         <button className="bg-amber-900/25 p-2 w-full rounded-2xl text-black font-bold text-lg shadow hover:shadow-xl cursor-pointer border-2 border-amber-950"> Login</button>
                     </div>
-                    <div className="text-center font-bold py-2 text-amber-950 mt-2 ">
+                    <div className="text-center font-bold py-2 text-amber-950 mt-2 "> 
                         Don't have an account yet? <Link className="underline text cursor-pointer shadow hover:text-amber-800" to={'/register'}> Register now</Link>
                         </div>
                 </form>

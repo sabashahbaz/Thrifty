@@ -3,27 +3,27 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import AddToWishlist from "./AddToWishlist.js";
 import AddToCart from "./AddToCart";
-// selected product will be displayed 
 
+// selected product will be displayed 
 function DisplayProduct () {
     const [product, setProduct] = useState(null)
     const [selectedImage, setSelectedImage] = useState(product?.coverImage)
-    const [addedToCart, setAddedToCart] = useState(false)
 
     const {id} = useParams();
 
+    //retreive the selected product from API with product id
     useEffect(() => {
         if (!id) {return;}
         axios.get(`/searchProductsByID/${id}`)
             .then((response) => {
             setProduct(response.data.data);
-            console.log("did it work",response.data)
         })
         .catch((error) => {
             console.error('Error fetching product details:', error);
         });
     }, [id]);
 
+    //allow users to select the displayed images for view  
     function handleSelectedImage(image) {
         setSelectedImage(image);
     }
@@ -39,7 +39,6 @@ function DisplayProduct () {
                         {product.images.map(image => (
                             <img onClick={()=> handleSelectedImage(image)}src={image} className="py-1 h-[120px] w-[120px]" />
                         ))}
-                        {/* <img onClick={()=> handleSelectedImage(image)} src={product.coverImage} className="py-1 h-[120px] w-[120px]"/> */}
                     </div>
                     <img src={ selectedImage||product.coverImage} className="m-0 h-[600px] w-[600px] object-cover aspect square"/>
                     </div>

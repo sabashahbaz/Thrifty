@@ -2,18 +2,15 @@ import axios from 'axios'
 import React, {useState, useEffect, useContext} from 'react'
 import {CartContext} from './CartContext';
 
-
+//the shopping cart modal 
 function ShoppingCartModal ({onClose}) {
 
-    const [productsInCart, setProductsInCart] = useState([])
-    const {shoppingCart, setShoppingCart, deleteResponse } = useContext(CartContext);
+    const {shoppingCart, setShoppingCart } = useContext(CartContext); // retreiving state variables fron CartContext 
 
-    console.log("shopping cart", shoppingCart)
-
+    //retrieving user cart products from shoppingCart list in database 
     useEffect(() => {
         axios.get('/getProductsFromCart',{ withCredentials: true })
         .then(response => {
-            console.log("the response",response.data)
             setShoppingCart(response.data)
         })
     }, [])
@@ -27,20 +24,14 @@ function ShoppingCartModal ({onClose}) {
         return totalCost.toFixed(2); 
     }
 
+    //delete a product from shopping cart 
     async function deleteProductFromCart(itemId) {
         try {
-            // console.log("item id from delete cart", itemId);
             const response = await axios.delete(`/deleteProductFromCart/${itemId}`, { withCredentials: true });
-            console.log("Delete response:", response);
-    
             if (response.status === 200) {
-                // The item was successfully deleted, so refresh the shopping cart
                 const refreshResponse = await axios.get('/getProductsFromCart', { withCredentials: true });
-                console.log("Refresh response:", refreshResponse);
-    
                 if (refreshResponse.status === 200) {
-                    // Update the shopping cart
-                    setShoppingCart(refreshResponse.data);
+                    setShoppingCart(refreshResponse.data);//updating the shopping cart 
                 }
             }
         } catch (error) {
@@ -48,14 +39,14 @@ function ShoppingCartModal ({onClose}) {
         }
     }
     
+    //user checkout to purchase items 
     function handleCheckout() {
-        console.log("shopping cart", shoppingCart);
         axios.post('/checkout', shoppingCart, {
             withCredentials: true,
         })
         .then((response) => {
             if (response.data.url) {
-                window.location.href = response.data.url;
+                window.location.href = response.data.url; //depending on if the purchase was complete or not, user will be redirected to the specified url from server 
             }
         })
         .catch((err) => console.log(err.message));
@@ -104,12 +95,10 @@ function ShoppingCartModal ({onClose}) {
                         Place Order
                     </button>
                     <p className = "mt-1 ml-3 font-bold text-xl">Total Price: ${addTotalCost()}</p>
-                </div>
-                
+                </div>  
             </div>
         </div>
     </div>
-    )
-}
+)};
 
 export default ShoppingCartModal;

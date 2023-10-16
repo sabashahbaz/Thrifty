@@ -13,4 +13,3 @@ module.exports = {
   plugins: [],
 }
 
-// background F6F2E7

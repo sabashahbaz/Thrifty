@@ -1,14 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
-// export const CartContext = createContext({
-//     wishlist: [],
-//     setShoppingCart: [],
-//     deleteFromWishlist: () => {},
-//     addProductToCart: () => {},
-//     deleteFromShoppingCart: () => {},
-// })
-
+//utilizing create Context to allow for versitile use of functions and state variables//
 export const CartContext = createContext({})
 
 function CartProvider({children}) {
@@ -17,13 +10,14 @@ function CartProvider({children}) {
     const [shoppingCart, setShoppingCart] = useState([])
     let deleteResponse;
 
+    //user can delele an item from their wishlist 
     function deleteFromWishlist(itemId) {
-        console.log("item id",itemId)
         axios.delete(`/deleteFromWishlist/${itemId}`, {withCredentials:true})
         .then((response) => {console.log("product is deleted")},
         // window.location.reload()
-        )}
+        )};
 
+    //user can add a product to their wishlist 
     async function addToWishlist(product) {
         const response = await  axios.post('/addToWishlist', {
             "productId": product.productId,
@@ -32,9 +26,9 @@ function CartProvider({children}) {
             "size": product.size,
             "image": product.image 
         }, {withCredentials: true})
-        console.log(response.data)
-    }
+    };
 
+    //user can add product to thier cart 
     async function addToCart (product) {
         const response = await axios.post('addToCart', {
             "title": product.title, 
@@ -42,15 +36,15 @@ function CartProvider({children}) {
             "image": product.image, 
             "size": product.size 
         }, {withCredentials: true})
-        console.log(response.data)
     }
 
+    //user can delete product from their cart 
     function deleteProductFromCart(itemId) {
-        console.log("item id from delete cart",itemId)
         axios.delete(`/deleteProductFromCart/${itemId}`, {withCredentials:true})
         .then((response) => {console.log(deleteResponse)})
         }
 
+    //return all of the childern of this component, for easy user 
     return (
         <CartContext.Provider 
             value={{wishlist, setWishlist, deleteFromWishlist, addToWishlist, 

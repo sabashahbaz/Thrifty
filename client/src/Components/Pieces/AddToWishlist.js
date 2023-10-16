@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import {CartContext} from './CartContext';
 
+//functionality to add product to wish list 
 function AddToWishlist({productId, title, price, size, image}) {
 
     const [addedToWishlist, setAddedToWishlist] = useState(false)

@@ -1,11 +1,11 @@
-import axios from 'axios';
 import React, {useState, useContext} from 'react'
 import {CartContext} from './CartContext';
 
+//component to add to cart from product display  
 function AddToCart({id, title, price, size, image}) {
     console.log("meow",id)
 
-    const {shoppingCart, setShoppingCart, addToCart, deleteProductFromCart } = useContext(CartContext);
+    const {addToCart} = useContext(CartContext); //addToCart function from useContext 
     const [addedToCart, setAddedToCart] = useState(false)
 
     return(

@@ -16,10 +16,10 @@ function NewListingPage ({setListings}) {
     const {id} = useParams()
 
 
-    //setting use state so the form will have the data filled out to be able to update the form
+    //setting use state so when the user updates an existing listing, the form will have the data filled out 
     useEffect(() => {
         if(!id) {return;} // if there is no id, return nothing 
-        axios.get('/listings/' +id) // if there an id present -> fetch the listing information 
+        axios.get('/listings/' +id) // if there an id present -> fetch the listing information from saved database 
         .then(response => {
             const {data} = response;
             setTitle(data.title);
@@ -37,42 +37,33 @@ function NewListingPage ({setListings}) {
     function uploadImage (e) {
         e.preventDefault()
         const files = e.target.files; // gets the files uploaded by the user
-        console.log("files",{files})
         const data = new FormData(); // new FormData object is created (construct a set of key/value pairs)
         for (let i = 0; i < files.length; i++) { 
             data.append('images', files[i]);  // append each file to the data object wit the key "images", to create a key of images
         }
-        axios.post('/uploadImages', data, { // post request, sending the data (array of fselected iles)
+        axios.post('/uploadImages', data, { // post request, sending the data (array of selected files)
             headers: {
                 'Content-type': 'multipart/form-data'
             }
         }).then(response=> {
-            const {data:filenames} = response // assings data to the filename 
-            // setImages(prev => {
-            //     return [...prev, ...filenames]
+            const {data:filenames} = response // assinging data to the filename 
             setImages(prev => {
                 return [...prev, ...filenames]
             })
-            console.log("added images from upload",addedImages)
         })
     };
-
-    console.log("addedImages",addedImages)
 
     //add new listing to database OR updating existing listing
     async function saveNewListing(e){
         e.preventDefault()
         if (id) {
             //update
-            console.log("update", addedImages)
             await axios.put('/updateNewListing',{
                 id,
                 title, brand, 
                 size, description, 
                 price, addedImages, colors}, {withCredentials: true});
-                navigate('/listings')
-                // window.location.reload(true);
-            
+                navigate('/listings')          
         } else {
             //add new listing
             await axios.post('/addNewListing',{
@@ -82,7 +73,7 @@ function NewListingPage ({setListings}) {
                 (navigate('/listings'))
                 window.location.reload(true);
         }
-    }
+    };
     
     return(
         <div className="mt-10 w-full">
