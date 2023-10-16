@@ -76,7 +76,7 @@ npm install & start
 ## Acknowledgments:
 This project originally started as a group collaboration during my time at the Flatiron Software Engineering Boot Camp. My initial team members were Alice Hepburn, Jon Rosenblum and Bushra Yazmin. We used a combination of React, Flask, SQLite, and SQL databases for the project.
 
-However, I decided to take on the challenge of revamping the entire project myself, and I completely restructured it using Node.js and MongoDB, introducing new technologies and a different approach to meet our project goals. Please refer to: https://github.com/sabashahbaz/price-comparison-site, for original product. 
+However, I decided to take on the challenge of revamping the entire project myself, and I completely restructured it using Node.js and MongoDB, introducing new technologies and a different approach to meet our project goals. Please refer to: https://github.com/aokhepburn/price-comparison-site, for original product. 
 
 ## License:
 
