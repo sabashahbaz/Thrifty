@@ -86,7 +86,6 @@ router.get('/searchProductsByID/:id', async (req, res) => {
         };
 
     res.json({ data: filteredData });
-    console.log({data: filteredData})
     } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred while fetching and filtering data.' });

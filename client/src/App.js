@@ -14,17 +14,16 @@ import Profile from './Components/Pages/Profile'
 import ProductsPage from './Components/Pages/ProductsPage';
 import DisplayProduct from './Components/Pieces/DisplayProduct';
 import DisplayWishListPage from './Components/Pieces/DisplayWishListProduct';
-import Cancel from './Components/Pages/Cancel'
-import Success from './Components/Pages/Success'
+import Cancel from './Components/Pages/CancelledOrder'
+import Success from './Components/Pages/SuccessfulOrder'
 import Welcome from './Components/Pages/Welcome'
-// import IndexPage from './Components/Routes/IndexPage'
 
 axios.defaults.baseURL = 'http://localhost:4000'
 
-function App() {
-    // const [currentUser, setCurrentUser] = useState(null)
-    const [searchedProducts, setSearchedProducts] = useState([])
+//establishing all routes//
 
+function App() {
+    const [searchedProducts, setSearchedProducts] = useState([])
 
     return (
         <BrowserRouter>
@@ -32,7 +31,6 @@ function App() {
             <CartProvider>
             <Navbar setSearchedProducts={setSearchedProducts} />
                 <Routes >
-                    {/* <Route path="/" element={<Layout />} > */}
                         <Route path="/login" element={<LoginPage setSearchedProducts={setSearchedProducts}/>} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}/>
@@ -43,7 +41,6 @@ function App() {
                         <Route path="listings/new" element={<NewListingPage />}/>
                         <Route path="listings/:id" element={<NewListingPage  />}/>
                         <Route path="/product/:id" element={<DisplayProduct  />}/> 
-                        {/* <Route path="/shoppingCart"/> */}
                         <Route path="success" element={<Success/>} />
                         <Route path="cancel" element={<Cancel/>} />
                         <Route path="/" element={<Welcome/>}/>
@@ -51,8 +48,7 @@ function App() {
             </CartProvider>
         </UserContextProvider>
         </BrowserRouter>
-    )
-};
+    )};
 
 
 export default App;

@@ -3,17 +3,15 @@ import axios from "axios";
 import {Link} from 'react-router-dom';
 import {CartContext} from '../Pieces/CartContext'
 import DisplayProduct from '../Pieces/DisplayProduct'
-// import {UserContext }from "../Pieces/UserContext";
+
 
 function WishListPage() {
 
     const {wishlist, setWishlist, deleteFromWishlist} = useContext(CartContext);
-    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         axios.get('/wishlistProducts',{ withCredentials: true })
         .then(response => {
-            console.log("the response",response.data)
             setWishlist(response.data)
         })
     }, [])
@@ -22,9 +20,6 @@ function WishListPage() {
         window.location.reload()
     }
 
-    // console.log("blah", product.id)
-
-        
     return (
         <div className= "flex flex-col items-center justify-center mt-10  ">
             <h1 className = "text-2xl font-bold">My Wishlist</h1>

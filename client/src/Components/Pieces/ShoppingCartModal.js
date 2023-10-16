@@ -48,18 +48,18 @@ function ShoppingCartModal ({onClose}) {
         }
     }
     
-    function handleCheckout () {
-        console.log("shopping cart", shoppingCart)
-        axios.post('/checkout', {
-            shoppingCart,
-            withCredentials: true, 
-        }).then((response) => {
-            if(response.data.url) {
-                window.location.href = response.data.url
+    function handleCheckout() {
+        console.log("shopping cart", shoppingCart);
+        axios.post('/checkout', shoppingCart, {
+            withCredentials: true,
+        })
+        .then((response) => {
+            if (response.data.url) {
+                window.location.href = response.data.url;
             }
-        }).catch((err) => console.log(err.message))
-        
-    } 
+        })
+        .catch((err) => console.log(err.message));
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">

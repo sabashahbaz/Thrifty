@@ -44,7 +44,6 @@ router.get('/getProductsFromCart', (req,res) => {
 router.delete('/deleteProductFromCart/:id', (req,res) => {
     const {token} = req.cookies;
     const {id} = req.params;
-    console.log("MANO", req.params)
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) {
             return res.status(401).json({error: "unauthorized"});
@@ -61,21 +60,25 @@ router.delete('/deleteProductFromCart/:id', (req,res) => {
     })
 })
 
-
 router.post('/checkout', async (req,res) => {
     const {token} = req.cookies;
     jwt.verify(token, jwtSecret, async (err, userData) => {
-    //stripe wants data in an array but id should say price
-    console.log("paymentbody", req.body)
+        if (err) {
+            return res.status(401).json({error: "Unauthorized"});
+        }
 
-    const line_items = req.body.shoppingCart.map( item =>{
+        const userShoppingCart = await ShoppingCart.find({owner:userData.id})
+        if (userShoppingCart.length === 0 ) {
+            return res.status(400).json({error: "shopping cart is empty"})
+        }
+
+    const line_items = userShoppingCart.map( item =>{
         return{
             price_data:{
                 currency: 'usd',
                 product_data: {
                     name: `${item.title} - Size: ${item.size}`,
                     images: [item.image],
-                    // size: item.size
                 },
                 unit_amount: item.price *100,
             },
@@ -142,6 +145,9 @@ router.post('/checkout', async (req,res) => {
         success_url: "http://localhost:3100/success",
         cancel_url: "http://localhost:3100/cancel"
     });
+
+    await ShoppingCart.deleteMany({owner: userData.id}) // after user has purchased items, delete them from shopping cart 
+
     res.send({url:session.url});
 })
 });

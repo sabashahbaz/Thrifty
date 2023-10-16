@@ -1,4 +1,4 @@
-/* ORIGINAL CHANGES */
+
 import React, {useContext} from 'react';
 import bg from "../../Assets/thriftybg.png"
 import { Link } from 'react-router-dom';

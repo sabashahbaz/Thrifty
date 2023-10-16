@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Wishlist = require('../models/Wishlist.js')
+const axios = require('axios');
 
 require('dotenv').config();
 
@@ -12,10 +13,8 @@ const apiKey = process.env.POSHMARK_API_KEY
 router.post('/addToWishlist', async (req, res) => {
     const { token } = req.cookies;
     const { productId, title, price, size, image } = req.body;
-    console.log("req.body", req.body)
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) throw err;
-        
         const newWishlistItem = await Wishlist.create({ 
             owner: userData.id,
             product: {productId, title, price, size ,image
@@ -29,13 +28,11 @@ router.post('/addToWishlist', async (req, res) => {
 router.get('/wishlistProducts', async (req,res) => {
     const { token } = req.cookies;
     jwt.verify(token, jwtSecret, async (err, userData) => {
-        // console.log(userData.id)
         if (err) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
         try {
             const wishlistItems = await Wishlist.find({owner:userData.id})
-            console.log(wishlistItems)
             res.json(wishlistItems)
         }catch (error) {
             console.error(error);
@@ -48,7 +45,6 @@ router.get('/wishlistProducts', async (req,res) => {
 router.delete('/deleteFromWishlist/:itemId', async (req,res) => {
     const {token} = req.cookies;
     const {itemId} = req.params;
-    console.log("req body", req.params)
 
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) {
@@ -107,7 +103,7 @@ router.get('/searchWishlistByID/:id', async (req, res) => {
         };
 
     res.json({ data: filteredData });
-        console.log({data: filteredData})
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while fetching and filtering data.' });
