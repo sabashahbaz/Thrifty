@@ -33,11 +33,9 @@ router.post('/uploadImages',imageMiddleware.array('images', 50), (req,res) => {
 //adding a new listing 
 router.post('/addNewListing', async (req,res) => {
     const {token} = req.cookies;
-    console.log(token)
     const {
         title, brand, addedImages, description, price, colors, size
     } = req.body
-    console.log("req body",req.body)
     jwt.verify(token, jwtSecret, async (err, userData) => { 
         if (err) throw err;
     const ListingData = await MyListing.create({
@@ -45,7 +43,6 @@ router.post('/addNewListing', async (req,res) => {
         title, brand, images:addedImages, description, price, colors, size
         
     })
-    console.log("what is being added",ListingData)
     res.json(ListingData)
 })
 })
@@ -61,7 +58,6 @@ router.get('/userListings', (req, res) => {
 
 //so the form will have the data filled out 
 router.get('/listings/:id', async (req,res) => {
-    console.log("req", req)
     const {id} = req.params;
     res.json(await MyListing.findById(id))
 })
@@ -70,7 +66,6 @@ router.get('/listings/:id', async (req,res) => {
 router.put('/updateNewListing/', async (req, res) => {
     const { token } = req.cookies;
     const { id, title, brand, images, description, price, colors, size } = req.body;
-    console.log("what is happening", req.body);
     jwt.verify(token, jwtSecret, async (err, user) => {
         const listingData = await MyListing.findById(id);
         if (user.id == listingData.owner.toString()) {
@@ -96,7 +91,6 @@ router.put('/updateNewListing/', async (req, res) => {
 router.delete('/deleteListing/:itemId', (req,res) => {
     const {token} = req.cookies;
     const {itemId} = req.params;
-    console.log("req body", req.params)
 
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) {

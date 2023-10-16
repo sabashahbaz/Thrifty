@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from "react";
+import React, { useState, useContext, Fragment, useEffect } from "react";
 import logo from "../../Assets/logo.png";
 import {Link, useNavigate} from 'react-router-dom';
 import { UserContext } from "../Pieces/UserContext.js";
@@ -14,10 +14,12 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
     const [clicked, setClicked] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
+    console.log("user from navbar", user)
     function toggleMenu () {
-        console.log("meow")
         setClicked (!clicked) 
+        console.log(clicked)
     }
+
 
     async function logout() {
         try {
@@ -30,7 +32,7 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
     }
 
     return ( 
-        // <Fragment>
+
             <nav>
             <header className=" flex justify-between items-center  h-20 bg-gradient-to-b from-navbar to-white   "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
@@ -57,7 +59,7 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                         </svg>
                         </div>
                         <div>
-                            {user ?  (<div> {user.firstName}</div>): null}
+                        <div> {user.firstName}</div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -93,9 +95,10 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                     </div>
                 </Link>}
         </header>
-    </nav>
-// </Fragment>
-        
+    </nav>      
+
+
+    
 )};
 
 export default Navbar;

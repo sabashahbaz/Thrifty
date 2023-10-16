@@ -44,7 +44,6 @@ router.get('/getProductsFromCart', (req,res) => {
 router.delete('/deleteProductFromCart/:id', (req,res) => {
     const {token} = req.cookies;
     const {id} = req.params;
-    console.log("MANO", req.params)
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) {
             return res.status(401).json({error: "unauthorized"});
@@ -62,16 +61,13 @@ router.delete('/deleteProductFromCart/:id', (req,res) => {
 })
 
 router.post('/checkout', async (req,res) => {
-    console.log("from checkout")
     const {token} = req.cookies;
-    console.log(token)
     jwt.verify(token, jwtSecret, async (err, userData) => {
         if (err) {
             return res.status(401).json({error: "Unauthorized"});
         }
 
         const userShoppingCart = await ShoppingCart.find({owner:userData.id})
-        console.log(userShoppingCart)
         if (userShoppingCart.length === 0 ) {
             return res.status(400).json({error: "shopping cart is empty"})
         }

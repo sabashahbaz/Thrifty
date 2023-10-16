@@ -10,6 +10,20 @@ const jwtSecret = process.env.JWT_SECRET;
 
 //     ** handle all routes for authentication and JWT creation **      \\
 
+//check user 
+router.get('/profile', (req,res)=>{
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+            if (err) throw err;
+            const {firstName,email,_id} = await User.findById(userData.id);
+            res.json({firstName, email,_id});
+        });
+    } else{
+        res.json(null);
+    }
+})
+
 //register user 
 router.post('/register', async (req,res) => {
     const {firstName, lastName, email, password} = req.body;    //information received from client 

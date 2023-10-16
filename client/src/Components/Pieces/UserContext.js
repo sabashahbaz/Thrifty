@@ -5,25 +5,25 @@ export const UserContext = createContext({});
 
 function UserContextProvider({children}) {
     
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        // Initialize the user state with data from local storage if available
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
     const [loggedIn, setLoggedIn] = useState(false);
 
+     // Check if the user is logged in 
     useEffect(() => {
-        // Check if the user is logged in by making a request to the /profile endpoint
-        axios.get('/profile', { withCredentials: true })
-            .then((response) => {
-            if (response.data) {
-                    // User data exists, set the user and mark as logged in
-                    setUser(response.data);
-                    // setLoggedIn(true);
-                    console.log("from usercontext",response.data)
-                }
+        if (!user) {
+            axios.get('/profile', { withCredentials: true })
+            .then(({data})=> {
+                setUser(data);
+                localStorage.setItem("user", JSON.stringify(data));
             })
-            .catch((error) => {
-                // Handle any errors, you can add error handling logic here
-                console.error('Error fetching user profile:', error);
-            });
-    }, []);
+            }
+        }, [user]);
+
+        console.log(user)
 
     return (
         <UserContext.Provider value={{user, setUser, loggedIn}} >
