@@ -68,7 +68,8 @@ npm install & start
 
 
 ## Upcoming Features:
-- Utilization of Ebay API to allow users to compare prices of products in their wishlist 
+- Utilization of Ebay API to allow users to compare prices of products in their wishlist
+- Search and filter functionality in product search list and wishlist page for enhanced user experience 
 
 ## Acknowledgments:
 This project originally started as a group collaboration during my time at the Flatiron Software Engineering Boot Camp. My initial team members were Alice Hepburn, Jon Rosenblum and Bushra Yazmin. We used a combination of React, Flask, SQLite, and SQL databases for the project.
