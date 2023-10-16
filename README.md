@@ -1,6 +1,6 @@
 <p align="center">
     <a href=""><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
-    <a href=""><img src="https://badgen.net/github/commits/sabashahbaz/Thrifty2.0" /></a>
+    <a href=""><img src="https://badgen.net/github/commits/sabashahbaz/Thrifty" /></a>
     <br>
     <a href=""><img src="https://img.shields.io/badge/React.js-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=white"/></a>
      <a href=""><img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
