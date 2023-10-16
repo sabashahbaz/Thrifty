@@ -1,7 +1,9 @@
 import React from 'react';
 
+//colors form component, part of the mylisting form 
 function ColorsForm ({onChange, selected}) {
 
+    //when a color is checked, it adds it to an array to allow for a listing to have multiple colors
     function handleColorClick(e){
         const {checked, name} = e.target
         if (checked) {

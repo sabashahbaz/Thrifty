@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import bg from "../../Assets/bg-clothing.png"
 
+//user registration page 
 function Register() {
 
     const [firstName, setFirstName] = useState("")
@@ -12,6 +13,7 @@ function Register() {
 
     const navigate = useNavigate()
 
+    //user submit their name, email and password 
     async function registerUser (e) {
     e.preventDefault()
     try {
@@ -19,7 +21,7 @@ function Register() {
             firstName, lastName, email, password
         });
         alert("Registered successfull. Now you can log in.")
-        navigate('/login')
+        navigate('/login') // once their information is submitted, they redirected to the login page 
     } catch (e) {
         alert("Registration failed. Please try again.")
     }
@@ -67,15 +69,10 @@ function Register() {
                         <div className="text-center font-bold py-2 amber-950 mt-2">
                         Already a member? <Link className="underline text cursor-pointer shadow hover:text-amber-800" to={'/login'}> Login</Link>
                         </div>
-
                     </div>
-                    
                 </form>
-
-
             </div>
         </div>
-    )
-};
+    )};
 
 export default Register;

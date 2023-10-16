@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+//search bar to allow user to search for products via Poshmark API 
 function ProductSearchBar({setSearchedProducts}) {
     const navigate = useNavigate();
     const [newSearch, setNewSearch ] = useState("")
@@ -10,15 +11,13 @@ function ProductSearchBar({setSearchedProducts}) {
         setNewSearch(e.target.value)
     }
 
-    // he is using use effect to constantly have the places fetched on page - will use for featured 
+    //serach for products with API call 
     function searchProducts (e) {
         e.preventDefault()
-        console.log("inside search products")
         axios.get(`/searchProducts/${newSearch}`)
         .then(response => {
             setSearchedProducts(response.data.data)
-            // console.log("data from search bar",data)
-            navigate('/products')
+            navigate('/products') //navigate to products page, with the searched functions displayed 
         })
     };
 

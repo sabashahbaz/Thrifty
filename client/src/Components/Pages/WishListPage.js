@@ -4,18 +4,20 @@ import {Link} from 'react-router-dom';
 import {CartContext} from '../Pieces/CartContext'
 import DisplayProduct from '../Pieces/DisplayProduct'
 
-
+//user wish list 
 function WishListPage() {
 
     const {wishlist, setWishlist, deleteFromWishlist} = useContext(CartContext);
 
+    //getting the user wish list items from database 
     useEffect(() => {
         axios.get('/wishlistProducts',{ withCredentials: true })
         .then(response => {
             setWishlist(response.data)
         })
-    }, [])
+    }, []);
 
+    //after user deletes an item from wish list, page will reload, without the deleted product 
     function toggleRefresh() {
         window.location.reload()
     }

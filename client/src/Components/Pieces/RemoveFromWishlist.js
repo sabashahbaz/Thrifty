@@ -1,14 +1,14 @@
 import React, {useState, useContext} from 'react'
 import {CartContext} from './CartContext';
 
+//functionality to remove a product from wishlist 
 function RemoveFromWithlist ({product}) {
 
-    const {wishlist, setWishlist, deleteFromWishlist, addToWishlist } = useContext(CartContext);
-
+    const {deleteFromWishlist, addToWishlist } = useContext(CartContext);
     const [removeFromWishlist, setRemoveFromWishlist] = useState(false)
     const productInfo = {productId: product.id, title: product.title, price: product.price.val, size: product.size, image: product.coverImage}
 
-    console.log("what is product id",product.id)
+
     return (
         <div>
             {removeFromWishlist 
@@ -27,10 +27,7 @@ function RemoveFromWithlist ({product}) {
                     <p> Added to Wishlist</p>
                 </div>
             )}
-
-
         </div>
-    )
-}
+    )};
 
 export default RemoveFromWithlist;

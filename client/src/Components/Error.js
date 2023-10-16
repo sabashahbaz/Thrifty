@@ -2,6 +2,7 @@ import { useRouteError} from "react-router";
 import {Link} from "react-router-dom";
 import React from 'react';
 
+//error page 
 export default function Error () {
     const error = useRouteError();
     return (

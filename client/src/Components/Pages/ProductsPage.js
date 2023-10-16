@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {Link, useOutletContext} from 'react-router-dom';
 import DisplayProduct from '../Pieces/DisplayProduct'
-// import loadingGif from '../assets/loadinggif.gif';
-
 
 // Displays all of the products that are searched //
 function ProductsPage({searchedProducts}){
 
-    
     return (
         <div className = " py-4 px-8 mt-8 grid gap-x-12 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {searchedProducts.map(product => (
@@ -25,10 +22,7 @@ function ProductsPage({searchedProducts}){
                 </Link>
             ))}
         </div>
-
-            )
-
-}
+    )};
 
 export default ProductsPage;
 

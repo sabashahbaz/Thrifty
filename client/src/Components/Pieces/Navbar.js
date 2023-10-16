@@ -6,7 +6,7 @@ import ProductSearchBar from "./ProductSearchBar";
 import axios from "axios";
 import ShoppingCartModal from "./ShoppingCartModal";
 
-
+//static navbar 
 function Navbar ({ setSearchedProducts, productsInCart}) {
 
     const {user, setUser} = useContext(UserContext);
@@ -14,17 +14,16 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
     const [clicked, setClicked] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
-    console.log("user from navbar", user)
+    // allow user to view toggle menu for application functionality 
     function toggleMenu () {
         setClicked (!clicked) 
-        console.log(clicked)
     }
 
-
+    //logout function 
     async function logout() {
         try {
             await axios.delete('/logout', { withCredentials: true });
-            setUser(null);
+            setUser(null); //when user log out, set user as null 
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
@@ -32,7 +31,6 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
     }
 
     return ( 
-
             <nav>
             <header className=" flex justify-between items-center  h-20 bg-gradient-to-b from-navbar to-white   "> {/* Added 'items-center' class */}
             <Link to='/'><img src={logo} className="h-24" /></Link>
@@ -83,7 +81,6 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                 ) : null}
                     </div>
                     </div>
-                
                 ) 
                 :  <Link to='/login'>
                     <div className="flex items-center gap-2 border border-gray-300 rounded-full py-1 px-3 mr-5 w-100 h-9 shadow-md shadow-amber-950 cursor-pointer bg-white">
@@ -96,9 +93,6 @@ function Navbar ({ setSearchedProducts, productsInCart}) {
                 </Link>}
         </header>
     </nav>      
-
-
-    
 )};
 
 export default Navbar;

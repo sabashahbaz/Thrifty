@@ -2,22 +2,20 @@ import React, {useEffect, useState} from "react";
 import {Link,Outlet, useLocation} from 'react-router-dom';
 import axios from "axios";
 
-
+// display the listings the user as posted for sale 
 function MyListing(){
     const [listings, setListings] = useState([])
 
-    //to display all of the saved listings
+    //to display all of the saved listings from database 
     useEffect(() => {
         axios.get('/userListings', {withCredentials: true})
         .then(({data}) => {
-            console.log(data)
             setListings(data)
         })
     }, [])
     
-    //delete listing from closet 
+    //user delete a listing they posted 
     function deleteListing(itemId) {
-        console.log("item id from delete cart",itemId)
         axios.delete(`/deleteListing/${itemId}`, {withCredentials:true})
         .then((response) => {console.log(response)})
         window.location.reload()

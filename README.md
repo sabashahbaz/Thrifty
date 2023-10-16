@@ -30,8 +30,10 @@ Thrifty is a modern web application built to enhance the shopping experience by 
 - **User Authentication:** Secure user signup and login functionality utilizing JWT (JSON Web Token)
 - **Product Search:** Search for items on Poshmark API with detailed results with images, size of product, description and price.
 - **Post Listing:** User can efforlessly post their clothing items for sale
+- **Upload Images from file:** User can upload images from their computer for their listing 
+- **Edit Existing Listing:** User can edit their existing listing 
 - **Personal Wishlist:** Allow users to curate and manage their wishlist.
--**Purchasing Capabilities** Utilizing the Stripe API to allow a safe and user friendly checkout experience 
+- **Purchasing Capabilities** Utilizing the Stripe API to allow a safe and user friendly checkout experience 
 - **User Logout:** Provide a smooth logout mechanism.
 
 ## Installation:
@@ -68,12 +70,13 @@ npm install & start
 
 
 ## Upcoming Features:
-- Utilization of Ebay API to allow users to compare prices of products in their wishlist 
+- Utilization of Ebay API to allow users to compare prices of products in their wishlist
+- Search and filter functionality in product search list and wishlist page for enhanced user experience 
 
 ## Acknowledgments:
 This project originally started as a group collaboration during my time at the Flatiron Software Engineering Boot Camp. My initial team members were Alice Hepburn, Jon Rosenblum and Bushra Yazmin. We used a combination of React, Flask, SQLite, and SQL databases for the project.
 
-However, I decided to take on the challenge of revamping the entire project myself, and I completely restructured it using Node.js and MongoDB, introducing new technologies and a different approach to meet our project goals. 
+However, I decided to take on the challenge of revamping the entire project myself, and I completely restructured it using Node.js and MongoDB, introducing new technologies and a different approach to meet our project goals. Please refer to: https://github.com/aokhepburn/price-comparison-site, for original product. 
 
 ## License:
 

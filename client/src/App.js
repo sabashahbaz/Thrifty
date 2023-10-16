@@ -2,7 +2,6 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CartProvider from './Components/Pieces/CartContext'
 import React, {useState } from "react";
 import axios from 'axios'
-import Layout from './Layout'
 import LoginPage from './Components/Pages/LoginPage'
 import Register from './Components/Pages/Register'
 import UserContextProvider from './Components/Pieces/UserContext';
@@ -10,7 +9,6 @@ import MyListing from './Components/Pages/MyListing';
 import WishListPage from './Components/Pages/WishListPage';
 import Navbar from './Components/Pieces/Navbar';
 import NewListingPage from './Components/Pages/NewListingPage';
-import Profile from './Components/Pages/Profile'
 import ProductsPage from './Components/Pages/ProductsPage';
 import DisplayProduct from './Components/Pieces/DisplayProduct';
 import DisplayWishListPage from './Components/Pieces/DisplayWishListProduct';
@@ -34,7 +32,6 @@ function App() {
                         <Route path="/login" element={<LoginPage setSearchedProducts={setSearchedProducts}/>} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/products" element={<ProductsPage searchedProducts={searchedProducts} />}/>
-                        <Route path="profile" element={<Profile />} />
                         <Route path="wishlist" element={<WishListPage />}/>
                         <Route path="/wishlist/:id" element={<DisplayWishListPage />}/>
                         <Route path="listings" element={<MyListing />} />

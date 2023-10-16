@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import bg from "../../Assets/success.png"
-import { Link } from 'react-router-dom';
 import { UserContext } from "../Pieces/UserContext.js";
 
+// user will be directed after a successful checkout 
 function Success () {
     const {user} = useContext(UserContext);
     return (
